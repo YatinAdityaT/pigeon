@@ -1,0 +1,7 @@
+db.sqlite3
+node_modules/
+.npm
+build/Release
+.vscode-test
+__pycache__/
+MANIFEST

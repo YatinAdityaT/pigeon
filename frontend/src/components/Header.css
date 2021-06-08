@@ -1,0 +1,17 @@
+.header {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.1fr 3fr 0.1fr;
+  align-items: center;
+  height: 4em;
+}
+
+.username {
+  font-size: 2vw;
+  /* max-height: inherit;
+  max-width: inherit; */
+  text-transform: capitalize;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
