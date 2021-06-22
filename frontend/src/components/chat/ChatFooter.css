@@ -1,0 +1,28 @@
+.chat_footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  background-color: #ebebeb;
+  height: 8%;
+}
+.input_box {
+  flex: 0.95;
+  border-radius: 30px;
+  height: 30px;
+  border-style: solid;
+  border-color: lightgray;
+  background-color: white;
+  border-width: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text_box {
+  flex: 0.95;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}

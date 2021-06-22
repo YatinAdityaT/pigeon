@@ -4,21 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pigeon</title>
-    {% load static %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    />
-    <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}"
-    />
+    {% load static %} }
+    <script
+      src="https://kit.fontawesome.com/6c1161df18.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <div id="main">
-      <div id="app"></div>
-    </div>
-
-    <script src="{% static "frontend/main.js" %}"></script>
+    <div id="root"></div>
+    <script src="{% static "main.js" %}" ></script>
   </body>
 </html>
 
+{% comment %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endcomment %} {% comment %}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+/>
+{% endcomment %

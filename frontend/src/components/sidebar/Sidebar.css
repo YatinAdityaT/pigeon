@@ -1,0 +1,15 @@
+.sidebar {
+  flex: 0.2;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  padding: 0px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: lightgray;
+}
+
+.sidebar__group_cards {
+  overflow: auto;
+  scrollbar-width: thin;
+}

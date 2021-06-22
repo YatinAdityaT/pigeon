@@ -1,0 +1,21 @@
+.user_card {
+  display: flex;
+  align-items: center;
+  background-color: #ebebeb;
+  padding: 12px;
+}
+
+.user_card__user_name {
+  flex: 1;
+  padding-left: 12px;
+  font-size: 1.1rem;
+}
+
+.user_card__user_image {
+  border-radius: 50%;
+  width: 40px;
+}
+.fa-ellipsis-v {
+  width: 5px;
+  margin: 0 12px;
+}

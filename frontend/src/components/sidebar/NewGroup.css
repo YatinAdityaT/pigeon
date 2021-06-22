@@ -1,0 +1,11 @@
+.new_group {
+  display: flex;
+  background-color: #f6f6f6;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.new_group__text {
+  margin-left: 12px;
+}

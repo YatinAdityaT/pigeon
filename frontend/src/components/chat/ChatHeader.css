@@ -1,0 +1,26 @@
+.header_card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #ebebeb;
+  padding: 12px;
+  z-index: 2;
+}
+
+.header_name {
+  flex: 1;
+  padding-left: 12px;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  text-overflow: ellipse;
+}
+
+.header_image {
+  border-radius: 50%;
+  width: 40px;
+}
+.options {
+  display: flex;
+  flex: 0.2;
+  justify-content: space-around;
+}

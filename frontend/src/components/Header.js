@@ -15,6 +15,11 @@ function Header(props) {
     setanchorEl(null);
   };
 
+  const menuItems = [
+    // ["Clear chat", clearChat],
+    // ["Delete chat", deleteChat],
+    // ["Search", searchChat],
+  ];
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
   }, []);
@@ -40,7 +45,7 @@ function Header(props) {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         transformOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        {props.menuitems.map((element, i) => (
+        {menuItems.map((element, i) => (
           <MenuItem
             key={i}
             onClick={() => {

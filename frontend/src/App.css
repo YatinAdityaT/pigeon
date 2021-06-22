@@ -1,24 +1,17 @@
-/* @font-face {
-  font-family: "Architects Daughter";
-  src: url(D:\Chat\pigeon\src\assets\ArchitectsDaughter-Regular.ttf);
-} */
-
 .app {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  font-family: "Architects Daughter", cursive;
-}
-/* #background-video {
-  position: fixed;
-  z-index: -1;
-  display: none;
-} */
-
-.app__body {
-  position: fixed;
   display: flex;
-  width: 95vw;
   height: 95vh;
-  background: rgba(148, 225, 250, 0.5);
+  width: 90vw;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.14);
+  justify-content: center;
+}
+
+.app > div {
+  box-sizing: border-box;
+}
+
+.maintain_size {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

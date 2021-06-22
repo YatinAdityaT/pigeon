@@ -1,0 +1,33 @@
+.chat_message {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 4%;
+  padding-top: 2%;
+}
+
+.incoming {
+  align-items: flex-start;
+}
+
+.message_box {
+  border-radius: 7.5px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+  min-width: 105px;
+}
+.message_box.incoming {
+  background-color: white;
+}
+
+.message_box.outgoing {
+  background-color: #e1f2fb;
+}
+
+.outgoing {
+  align-items: flex-end;
+}
+
+.message_box {
+  width: 35%;
+  padding: 6px 7px 8px 9px;
+}

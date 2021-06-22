@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Sidebar from "./components/sidebar/Sidebar";
+import Chat from "./components/chat/Chat";
 import "./App.css";
-import Chat from "./components/Chat";
-import Sidebar from "./components/Sidebar";
-import { useSelector } from "react-redux";
-
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const [showLogin, switchState] = useState(true);
   return (
-    <>
-      <div className="app">
-        <div className="app__body">
+    <div className="app">
+      {showLogin ? (
+        <Register />
+      ) : (
+        <>
           <Sidebar />
-          <button onClick={}>+</button>
-          {isLoggedIn ? <Chat /> : ""}
-        </div>
-      </div>
-    </>
+          <Chat />
+        </>
+      )}
+    </div>
   );
 }
 

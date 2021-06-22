@@ -1,0 +1,12 @@
+.chat_body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  background-image: url("../../assets/bg3.jpg");
+  background-repeat: repeat;
+  background-size: 900px;
+}

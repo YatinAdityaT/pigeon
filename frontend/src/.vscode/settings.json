@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "assets": true,
+    "redux": true,
+    ".vscode": true
+  }
+}
