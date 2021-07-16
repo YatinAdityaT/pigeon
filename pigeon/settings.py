@@ -1,13 +1,23 @@
+from . import config  # for passwords and secret keys
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-4*uspe_3kow7^&h+87d5)^*02b+d_z=wga9b1)@)6om$=2j4na'
+SECRET_KEY = config.SECRET_KEY
 DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.36']
 
 INSTALLED_APPS = [
+    # added by me
+    'users',
     'channels',
+    'rest_framework',
     'backend.apps.BackendConfig',
     'frontend.apps.FrontendConfig',
+    'djoser',
+    'rest_framework_simplejwt',
+
+    # admin and auth
+
+    # django.contrib.admin causes django to look for admin.py files in each module and import them
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,3 +100,38 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "users.CustomUser"
+
+# Rest framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
+# Djoser configuration
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+
+    'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'username-reset/{uid}/{token}',
+
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+
+    'SEND_CONFIRMATION_EMAIL': True,
+    'PASSWORD_CHANGE_EMAIL_CONFIRMATION': True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+}
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config.EMAIL
+EMAIL_HOST_PASSWORD = config.PASSWORD
