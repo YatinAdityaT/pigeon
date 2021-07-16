@@ -5,6 +5,6 @@ build/Release
 .vscode-test
 __pycache__/
 MANIFEST
-.vscode
+**/.vscode
 **/config.py
 venv
