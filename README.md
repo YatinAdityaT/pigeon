@@ -1,4 +1,4 @@
-# Project in construction
+# Project under construction
 
 ## Ignore the following:
 Creating a Custom User Model in Django
