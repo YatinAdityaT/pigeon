@@ -1,3 +1,6 @@
+# Project in construction
+
+## Ignore the following:
 Creating a Custom User Model in Django
 https://testdriven.io/blog/django-custom-user-model/#model-manager
 

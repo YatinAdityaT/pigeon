@@ -1,3 +1,5 @@
+// This is the main file that attaches the app.js file to the document's root
+// The provider provides the store to the entire application - hence making the state available to the entire app
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";

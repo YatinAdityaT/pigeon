@@ -1,3 +1,5 @@
+// This is the rootReducer file. All is does is to combine reducers into a single rootReducer
+// and export it - to be used in the store
 import chatReducer from "./currentChat/chatReducer";
 import userReducers from "./currentUser/userReducer";
 import { combineReducers } from "redux";

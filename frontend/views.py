@@ -1,3 +1,4 @@
+# This view renders the main index.html
 from django.shortcuts import render
 
 

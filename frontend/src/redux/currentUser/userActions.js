@@ -1,5 +1,8 @@
 import * as actions from "./userActionTypes";
 
+// this file holds the actions that the user can take
+// each action returns an action type that tells the reducer
+// how to update the store's state
 export const authStart = () => {
   return {
     type: actions.AUTH_START,
