@@ -1,3 +1,4 @@
+from datetime import timedelta
 from . import config  # for passwords and secret keys
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -111,6 +112,7 @@ REST_FRAMEWORK = {
 }
 
 # Djoser configuration
+# (see: https://djoser.readthedocs.io/en/latest/settings.html)
 DJOSER = {
     'LOGIN_FIELD': 'email',
 
@@ -126,6 +128,14 @@ DJOSER = {
 
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SET_PASSWORD_RETYPE': True,
+}
+# JWT configuration
+# (see: https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html)
+JWT_SECRET_KEY = config.JWT_SECRET_KEY
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'SIGNING_KEY': JWT_SECRET_KEY,
 }
 
 # Email configuration

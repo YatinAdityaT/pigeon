@@ -6,8 +6,29 @@ app_name = "users"
 
 # users urls.py
 urlpatterns = [
+
+    # djoser.urls allows for several useful endpoints:
+    # / users /
+    # /users/activation /
+    # /users/resend_activation /
+    # /users/me /
+    # /users/set_{USERNAME_FIELD} /
+    # /users/set_{USERNAME_FIELD}_confirm /
+    # /users/set_password /
+    # /users/reset_password /
+    # and so on (see:  https://djoser.readthedocs.io/en/latest/base_endpoints.html)
     path('auth/', include('djoser.urls')),
+
+
+
+    # djoser.urls.jwt allows for 3 endpoints:
+    # /jwt/create - to generate the access and the refresh tokens
+    # /jwt/refresh - to generate a fresh access token
+    # /jwt/verify - to verify an access token
+    # (seehttps://djoser.readthedocs.io/en/latest/jwt_endpoints.html )
     path('auth/', include('djoser.urls.jwt')),
-    path('activate/<str:uid>/<str:token>',
-         UserActivationView.as_view())
+
+
+    # path('activate/<str:uid>/<str:token>',
+    #      UserActivationView.as_view())
 ]
