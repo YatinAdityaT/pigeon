@@ -1,6 +1,5 @@
 # Serializers are used to 'serialize' or convert incoming request data into
 # data that is compatible for storage in the db
-from django.db.models import fields
 from rest_framework import serializers
 from .models import CustomUser
 

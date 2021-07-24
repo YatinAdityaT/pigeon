@@ -1,6 +1,6 @@
 import os
-from datetime import timedelta
 from pathlib import Path
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = True
@@ -107,7 +107,8 @@ AUTH_USER_MODEL = "users.CustomUser"
 # Rest framework configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'users.authentication.EmailCustomAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ]
 }
 
@@ -130,18 +131,8 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
 }
 
-# # JWT configuration
-# # (see: https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html)
-# JWT_SECRET_KEY = config.JWT_SECRET_KEY
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#     'SIGNING_KEY': JWT_SECRET_KEY,
-# }
-
-
 # Email configuration
-# (devcomment) change console to smtp
+# (devcomment) change console to smtp!
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
