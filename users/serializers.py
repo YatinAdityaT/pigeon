@@ -40,9 +40,3 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)  # set passwords with set_password only
         account.save()  # save the account
         return account  # return the account just created
-
-
-class LoginSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['__all__']

@@ -51,9 +51,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
 
     def has_module_perms(self, app_label):
-        # (devcomment) what is this?
         return True
-
-
-# (devcomment)
-# create
