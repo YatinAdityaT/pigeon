@@ -1,8 +1,26 @@
 import React from "react";
 import "./common.css";
 import logo from "../../assets/logo.png";
+import axios from "axios";
 
 function Register() {
+  let submitForm = (event) => {
+    event.preventDefault();
+    const data = {
+      email: document.getElementsByClassName("email").value,
+      username: document.getElementsByClassName("usename").value,
+      password: document.getElementsByClassName("password1").value,
+      re_password: document.getElementsByClassName("password2").value,
+    };
+    const options = {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      data: data,
+      path: "/auth/users/",
+    };
+    axios(options);
+  };
+
   return (
     <div className="main">
       <div className="container">
@@ -10,11 +28,11 @@ function Register() {
           <img className="logo_image" alt="" src={logo} />
           <label className="project_name">pigeon</label>
         </div>
-        <form className="details">
+        <form className="details" onSubmit={submitForm}>
           <input
             type="email"
             autoFocus
-            className="password"
+            className="email"
             placeholder="Email"
           ></input>
           <input

@@ -23,7 +23,7 @@ export const authFailed = (error) => {
   };
 };
 
-export const logout = () => {
+export const authLogout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("expirationTime");
   return {

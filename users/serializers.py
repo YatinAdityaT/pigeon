@@ -1,5 +1,6 @@
 # Serializers are used to 'serialize' or convert incoming request data into
 # data that is compatible for storage in the db
+from django.db.models import fields
 from rest_framework import serializers
 from .models import CustomUser
 
@@ -39,3 +40,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)  # set passwords with set_password only
         account.save()  # save the account
         return account  # return the account just created
+
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['__all__']

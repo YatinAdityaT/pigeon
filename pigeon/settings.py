@@ -1,8 +1,8 @@
+import os
 from datetime import timedelta
-from . import config  # for passwords and secret keys
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = config.SECRET_KEY
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.36']
 
@@ -14,7 +14,7 @@ INSTALLED_APPS = [
     'backend.apps.BackendConfig',
     'frontend.apps.FrontendConfig',
     'djoser',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
 
     # admin and auth
 
@@ -107,7 +107,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 # Rest framework configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'users.authentication.EmailCustomAuthentication',
     ]
 }
 
@@ -129,19 +129,27 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SET_PASSWORD_RETYPE': True,
 }
-# JWT configuration
-# (see: https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html)
-JWT_SECRET_KEY = config.JWT_SECRET_KEY
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'SIGNING_KEY': JWT_SECRET_KEY,
-}
+
+# # JWT configuration
+# # (see: https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html)
+# JWT_SECRET_KEY = config.JWT_SECRET_KEY
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'SIGNING_KEY': JWT_SECRET_KEY,
+# }
+
 
 # Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# (devcomment) change console to smtp
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config.EMAIL
-EMAIL_HOST_PASSWORD = config.PASSWORD
+EMAIL_HOST_USER = os.environ["DJANGO_EMAIL"]
+EMAIL_HOST_PASSWORD = os.environ['DJANGO_EMAIL_PASSWORD']
+
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True

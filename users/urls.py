@@ -1,6 +1,6 @@
 # The urls file creates endpoints where users can send requests
 from django.urls import path, include
-from .views import UserActivationView
+from . import views
 
 app_name = "users"
 
@@ -26,9 +26,15 @@ urlpatterns = [
     # /jwt/refresh - to generate a fresh access token
     # /jwt/verify - to verify an access token
     # (seehttps://djoser.readthedocs.io/en/latest/jwt_endpoints.html )
+
+
+
+    # Session authentication - https://testdriven.io/blog/django-spa-auth/#django-drf-frontend-served-separately-same-domain
     path('auth/', include('djoser.urls.jwt')),
+    path('csrf/', views.get_csrf, name='api-csrf'),
+    path('login/', views.LoginView.as_view(), name='api-login'),
+    path('logout/', views.logout_view, name='api-logout'),
+    path('session/', views.SessionView.as_view(), name='api-session'),
+    path('whoami/', views.WhoAmIView.as_view(), name='api-whoami'),
 
-
-    # path('activate/<str:uid>/<str:token>',
-    #      UserActivationView.as_view())
 ]
