@@ -8,16 +8,14 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.36']
 
 INSTALLED_APPS = [
     # added by me
-    'users',
+    'backend.users',
+    'backend.chat',
     'channels',
     'rest_framework',
-    'backend.apps.BackendConfig',
-    'frontend.apps.FrontendConfig',
+    'frontend',
     'djoser',
-    # 'rest_framework_simplejwt',
 
     # admin and auth
-
     # django.contrib.admin causes django to look for admin.py files in each module and import them
     'django.contrib.admin',
     'django.contrib.auth',

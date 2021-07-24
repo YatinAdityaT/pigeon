@@ -6,8 +6,8 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('frontend.urls')),
-    path("chat/", include('backend.urls')),
-    path('api/accounts/', include('backend.urls')),
-    path('', include('users.urls'))
+    path("chat/", include('backend.chat.urls')),
+    path('api/accounts/', include('backend.chat.urls')),
+    path('', include('backend.users.urls'))
 
 ]
