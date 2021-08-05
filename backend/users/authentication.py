@@ -1,3 +1,4 @@
+# used for login view. Authenticates the user given the email and password
 import json
 
 from django.contrib.auth import authenticate, get_user_model
@@ -24,14 +25,14 @@ class EmailCustomAuthentication(authentication.BasicAuthentication):
 
         credentials = {'username': email, 'password': password}
 
+        if not user.is_active:
+            raise exceptions.AuthenticationFailed(
+                'The user account has not been active. Check your mailbox for activation mail & click on the activation url to activate your account.')
+
         user = authenticate(**credentials)
 
         if not user:
             raise exceptions.AuthenticationFailed("No such user exists.")
-
-        if not user.is_active:
-            raise exceptions.AuthenticationFailed(
-                'User is not active. Check you email for activation mail.')
 
         request.session['user_id'] = user.pk
         return (user, None)
