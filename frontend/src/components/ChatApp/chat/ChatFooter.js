@@ -1,5 +1,5 @@
 import React from "react";
-import "./ChatFooter.css";
+import "./css/ChatFooter.css";
 
 function ChatFooter() {
   return (

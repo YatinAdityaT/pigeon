@@ -1,5 +1,5 @@
 import React from "react";
-import "./ChatMessage.css";
+import "./css/ChatMessage.css";
 
 function ChatMessage({ chatType }) {
   return (

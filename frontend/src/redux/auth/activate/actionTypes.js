@@ -1,0 +1,3 @@
+export const ACTIVATE = "ACTIVATE";
+export const ACTIVATE_FAILED = "ACTIVATE_FAILED";
+export const ACTIVATE_SUCCESS = "ACTIVATE_SUCCESS";

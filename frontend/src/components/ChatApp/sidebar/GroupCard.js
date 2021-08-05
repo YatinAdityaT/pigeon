@@ -1,6 +1,6 @@
 import React from "react";
-import "./GroupCard.css";
-import group_image from "../../assets/group_image.png";
+import "./css/GroupCard.css";
+import group_image from "../../../assets/group_image.png";
 
 function GroupCard() {
   return (

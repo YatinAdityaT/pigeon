@@ -1,4 +1,4 @@
-import * as actions from "./chatActionTypes";
+import * as actions from "./actionTypes";
 
 const initialState = {
   joined_chat: false,

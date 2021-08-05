@@ -1,5 +1,5 @@
 import React from "react";
-import "./Chat.css";
+import "./css/Chat.css";
 import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
 import ChatHeader from "./ChatHeader";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Sidebar.css";
+import "./css/Sidebar.css";
 import GroupCard from "./GroupCard";
 import UserCard from "./UserCard";
 import NewGroup from "./NewGroup";

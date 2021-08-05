@@ -1,5 +1,5 @@
 import React from "react";
-import "./NewGroup.css";
+import "./css/NewGroup.css";
 
 function NewGroup() {
   return (

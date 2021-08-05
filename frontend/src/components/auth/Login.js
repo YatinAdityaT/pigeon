@@ -1,8 +1,39 @@
-import React from "react";
-import "./common.css";
-import logo from "../../assets/logo.png";
+// The login screen
 
-function Login() {
+import React, { useEffect, useRef } from "react";
+import "./css/Common.css";
+import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../redux";
+
+function Login(props) {
+  const { loggedIn } = props;
+  const mounted = useRef();
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      if (loggedIn) {
+        props.history.push("/chat/");
+      }
+    }
+  });
+
+  const getValue = (className) => {
+    return document.getElementsByClassName(className)[0].value;
+  };
+
+  // on form submit dispatch the register action
+  let submitForm = (event) => {
+    event.preventDefault();
+
+    const email = getValue("email");
+    const password = getValue("password");
+
+    props.logInUser(email, password);
+  };
+
   return (
     <div className="main">
       <div className="container">
@@ -10,11 +41,11 @@ function Login() {
           <img className="logo_image" alt="" src={logo} />
           <label className="project_name">pigeon</label>
         </div>
-        <form className="details">
+        <form className="details" onSubmit={submitForm}>
           <input
             type="email"
             autoFocus
-            className="password"
+            className="email"
             placeholder="Email"
           ></input>
           <input
@@ -28,11 +59,24 @@ function Login() {
           </button>
         </form>
         <div className="other_option">
-          No account? <a href="https://google.com">Create One.</a>
+          No account? <Link to="/register/">Create one.</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.login.loggedIn,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logInUser: (email, password) => {
+      dispatch(login(email, password));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

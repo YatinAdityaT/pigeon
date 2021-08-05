@@ -1,7 +1,7 @@
 import React from "react";
-import "./ChatHeader.css";
+import "./css/ChatHeader.css";
 
-import group_image from "../../assets/group_image.png";
+import group_image from "../../../assets/group_image.png";
 function ChatHeader() {
   return (
     <>

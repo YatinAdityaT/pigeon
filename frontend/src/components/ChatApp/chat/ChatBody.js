@@ -1,5 +1,5 @@
 import React from "react";
-import "./ChatBody.css";
+import "./css/ChatBody.css";
 import ChatMessage from "./ChatMessage";
 
 function ChatBody() {

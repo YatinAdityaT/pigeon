@@ -1,24 +1,40 @@
-import React from "react";
-import "./common.css";
-import logo from "../../assets/logo.png";
-import axios from "axios";
+// Registration page
 
-function Register() {
+import React, { useEffect, useRef } from "react";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import { register } from "../../redux";
+import "./css/Common.css";
+
+function Register(props) {
+  // https://stackoverflow.com/a/53406363/11573842
+  const { active, error, registered, loading } = props;
+  const mounted = useRef();
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      if (registered && !active) {
+        props.history.push("/notice/");
+      }
+    }
+  });
+
+  const getValue = (className) => {
+    return document.getElementsByClassName(className)[0].value;
+  };
+
+  // on form submit dispatch the register action
   let submitForm = (event) => {
     event.preventDefault();
-    const data = {
-      email: document.getElementsByClassName("email").value,
-      username: document.getElementsByClassName("usename").value,
-      password: document.getElementsByClassName("password1").value,
-      re_password: document.getElementsByClassName("password2").value,
-    };
-    const options = {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      data: data,
-      path: "/auth/users/",
-    };
-    axios(options);
+
+    const email = getValue("email");
+    const username = getValue("username");
+    const password = getValue("password1");
+    const re_password = getValue("password2");
+
+    props.registerUser(email, username, password, re_password);
   };
 
   return (
@@ -48,18 +64,35 @@ function Register() {
           <input
             className="password2"
             type="password"
-            placeholder="Re-Enter Password"
+            placeholder="Re-enter Password"
           ></input>
           <button className="submit_button" type="submit">
             Register
           </button>
         </form>
         <div className="other_option">
-          Already have an account? <a href="https://google.com">Login.</a>
+          Already have an account? <Link to="/login/">Login.</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    active: state.activate.active,
+    error: state.register.error,
+    registered: state.register.registered,
+    loading: state.register.loading,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registerUser: (email, username, password, re_password) => {
+      dispatch(register(email, username, password, re_password));
+    },
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Register)
+);
