@@ -8,3 +8,4 @@ MANIFEST
 **/.vscode
 **/config.py
 venv
+plan.md
