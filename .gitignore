@@ -9,3 +9,5 @@ MANIFEST
 **/config.py
 venv
 plan.md
+**/tests/*
+**/static/
