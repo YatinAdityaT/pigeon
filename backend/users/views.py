@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 import json
 from django.contrib.auth import get_user_model
 from django.contrib.sessions.models import Session
@@ -76,11 +77,11 @@ def get_csrf(request):
 
 class LoginView(APIView):
     # Logs a user in (the main work is done by EmailCustomAuthentication)
-    authentication_classes = [SessionAuthentication,
-                              EmailCustomAuthentication]
+    authentication_classes = [SessionAuthentication, ]
+# EmailCustomAuthentication
 
     def post(self, request):
-        data = json.loads(request.body)
+        data = json.loads(json.dumps(request.data))
         user_email = data.get('email')
         return JsonResponse({'logged_in': True, 'user_email': user_email})
 
@@ -93,6 +94,6 @@ def logout_view(request):
     try:
         del request.session['user_id']
     except KeyError:
-        return JsonResponse({'details': 'You are not logged in!'}, status=400)
+        return JsonResponse({'details': 'You are not logged in!'}, status=200)
 
     return JsonResponse({"details": "Successfully logged out"})

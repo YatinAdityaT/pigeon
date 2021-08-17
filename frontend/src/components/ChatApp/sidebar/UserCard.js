@@ -2,9 +2,11 @@ import React from "react";
 import "./css/UserCard.css";
 import user_image from "../../../assets/user_image.png";
 import DropdownMenu from "../DropdownMenu";
+import { connect } from "react-redux";
+import { logout } from "../../../redux/";
 
-function UserCard() {
-  const dropDownMenuContents = { "Log Out": () => {} };
+function UserCard({ logOutUser }) {
+  const dropDownMenuContents = { "Log Out": logOutUser };
   return (
     <div className="user_card">
       <img className="user_card__user_image" alt="" src={user_image}></img>
@@ -14,4 +16,17 @@ function UserCard() {
     </div>
   );
 }
-export default UserCard;
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOutUser: () => {
+      dispatch(logout());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserCard);

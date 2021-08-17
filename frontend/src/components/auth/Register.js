@@ -4,19 +4,22 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { register } from "../../redux";
+import { getCSRFToken, register } from "../../redux";
 import "./css/Common.css";
 
-function Register(props) {
+function Register({ active, registered, getCSRFToken, history, registerUser }) {
   // https://stackoverflow.com/a/53406363/11573842
-  const { active, error, registered, loading } = props;
+
   const mounted = useRef();
+
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
+
+      getCSRFToken();
     } else {
       if (registered && !active) {
-        props.history.push("/notice/");
+        history.push("/notice/");
       }
     }
   });
@@ -34,7 +37,7 @@ function Register(props) {
     const password = getValue("password1");
     const re_password = getValue("password2");
 
-    props.registerUser(email, username, password, re_password);
+    registerUser(email, username, password, re_password);
   };
 
   return (
@@ -90,6 +93,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     registerUser: (email, username, password, re_password) => {
       dispatch(register(email, username, password, re_password));
+    },
+    getCSRFToken: () => {
+      dispatch(getCSRFToken());
     },
   };
 };

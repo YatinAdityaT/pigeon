@@ -5,17 +5,18 @@ import "./css/Common.css";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../../redux";
+import { getCSRFToken, login } from "../../redux";
 
-function Login(props) {
-  const { loggedIn } = props;
+function Login({ loggedIn, getCSRFToken, logInUser, history }) {
   const mounted = useRef();
+
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
+      getCSRFToken();
     } else {
       if (loggedIn) {
-        props.history.push("/chat/");
+        history.push("/chat/");
       }
     }
   });
@@ -31,7 +32,7 @@ function Login(props) {
     const email = getValue("email");
     const password = getValue("password");
 
-    props.logInUser(email, password);
+    logInUser(email, password);
   };
 
   return (
@@ -76,6 +77,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logInUser: (email, password) => {
       dispatch(login(email, password));
+    },
+    getCSRFToken: () => {
+      dispatch(getCSRFToken());
     },
   };
 };

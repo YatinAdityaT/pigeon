@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 
-function DropdownMenu(props) {
-  const { options } = props;
+function DropdownMenu({ options }) {
   const dropdownMenu = useRef(null);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +12,7 @@ function DropdownMenu(props) {
   };
 
   const closeMenu = (event) => {
-    if (!dropdownMenu.current.contains(event.target)) {
+    if (dropdownMenu?.current && !dropdownMenu.current.contains(event.target)) {
       setMenuOpen(false);
       document.removeEventListener("click", closeMenu);
     }
@@ -24,7 +23,7 @@ function DropdownMenu(props) {
       <i className="fas fa-ellipsis-v" onClick={showMenu} ref={dropdownMenu}>
         {menuOpen
           ? Object.keys(options).map((option_name, index) => (
-              <button onClick={options[index]}>{option_name}</button>
+              <button onClick={options[option_name]}>{option_name}</button>
             ))
           : ""}
       </i>

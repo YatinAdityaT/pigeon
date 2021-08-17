@@ -1,4 +1,4 @@
-import * as actions from "./chatActionTypes";
+import * as actions from "./actionTypes";
 
 export const joinChat = (chatId) => {
   return {

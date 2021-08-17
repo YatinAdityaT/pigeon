@@ -1,9 +1,13 @@
+// Protected route for pages that require the user to
+// be logged in
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 const PrivateRoute = ({ isLoggedIn, component: Component, ...rest }) => {
   return (
+    // returns a route that either renders the component or renders a redirect
+    // based on whether of not the user is logged in - which is loaded from redux
     <Route
       {...rest}
       render={(props) => {

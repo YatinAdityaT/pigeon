@@ -26,8 +26,7 @@ function App(props) {
       if (!loggedIn) {
         // component did mount
         // check if the user is logged in once the component mounts
-        // props.checkIfLoggedIn();
-        console.log("component did mount");
+        props.checkIfLoggedIn();
       }
       mounted.current = true;
     }

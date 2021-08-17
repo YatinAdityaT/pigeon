@@ -42,8 +42,6 @@ function Activate(props) {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.activate.loading,
-    error: state.activate.error,
     active: state.activate.active,
   };
 };
