@@ -9,6 +9,14 @@ import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import {
+  createStateSyncMiddleware,
+  initMessageListener,
+} from "redux-state-sync";
+
+const reduxStateSyncConfig = {
+  blacklist: ["persist/PERSIST", "persist/REHYDRATE"],
+};
 
 const persistConfig = {
   key: "root",
@@ -35,8 +43,17 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
   persistedReducer,
-  composeWithDevTools(applyMiddleware(logger, thunk), resetMiddleware())
+  composeWithDevTools(
+    applyMiddleware(
+      logger,
+      thunk,
+      createStateSyncMiddleware(reduxStateSyncConfig)
+    ),
+    resetMiddleware()
+  )
 );
+
+initMessageListener(store);
 
 const persistor = persistStore(store);
 export { store, persistor };
