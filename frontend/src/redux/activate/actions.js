@@ -13,7 +13,7 @@ export const activate = (uid, token) => async (dispatch) => {
   try {
     const result = await fetch_("/auth/users/activation/", {
       method: "POST",
-      body: { uid: uid, token: token },
+      body: JSON.stringify({ uid: uid, token: token }),
     });
 
     console.log(result);
