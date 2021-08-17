@@ -77,8 +77,7 @@ def get_csrf(request):
 
 class LoginView(APIView):
     # Logs a user in (the main work is done by EmailCustomAuthentication)
-    authentication_classes = [SessionAuthentication, ]
-# EmailCustomAuthentication
+    authentication_classes = [SessionAuthentication, EmailCustomAuthentication]
 
     def post(self, request):
         data = json.loads(json.dumps(request.data))
