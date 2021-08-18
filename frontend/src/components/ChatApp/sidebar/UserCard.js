@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/UserCard.css";
 import user_image from "../../../assets/user_image.png";
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from "../others/DropdownMenu";
 import { connect } from "react-redux";
 import { logout } from "../../../redux/";
 

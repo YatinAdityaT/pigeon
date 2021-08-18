@@ -4,7 +4,6 @@ import * as actions from "./actionTypes";
 import { persistor } from "../store";
 
 const login_success = (state, action) => {
-  console.log("login_success");
   return {
     ...state,
     loggedIn: true,

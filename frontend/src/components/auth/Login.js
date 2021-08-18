@@ -55,7 +55,7 @@ function Login({ loggedIn, getCSRFToken, logInUser, history }) {
             placeholder="Password"
           ></input>
 
-          <button className="submit_button" type="submit">
+          <button className="btn submit_button" type="submit">
             Login
           </button>
         </form>

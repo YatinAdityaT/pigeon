@@ -15,13 +15,13 @@ import {
 } from "redux-state-sync";
 
 const reduxStateSyncConfig = {
-  blacklist: ["persist/PERSIST", "persist/REHYDRATE"],
+  blacklist: ["persist/PERSIST", "persist/REHYDRATE", "toast"],
 };
 
 const persistConfig = {
   key: "root",
   storage,
-  // blacklist: ["chat"],
+  blacklist: ["toast"],
 };
 
 function resetMiddleware() {
@@ -45,7 +45,7 @@ const store = createStore(
   persistedReducer,
   composeWithDevTools(
     applyMiddleware(
-      logger,
+      // logger,
       thunk,
       createStateSyncMiddleware(reduxStateSyncConfig)
     ),

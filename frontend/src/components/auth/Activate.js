@@ -32,7 +32,7 @@ function Activate(props) {
             ""
           )}
           <Link to="/login/">
-            <button className="notice_button">Login</button>
+            <button className="btn notice_button">Login</button>
           </Link>
         </div>
       </div>

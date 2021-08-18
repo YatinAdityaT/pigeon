@@ -69,7 +69,7 @@ function Register({ active, registered, getCSRFToken, history, registerUser }) {
             type="password"
             placeholder="Re-enter Password"
           ></input>
-          <button className="submit_button" type="submit">
+          <button className="btn submit_button" type="submit">
             Register
           </button>
         </form>

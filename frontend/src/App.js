@@ -16,6 +16,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Register from "./components/auth/Register";
 import ChatApp from "./components/ChatApp/ChatApp";
+import Toast from "./components/ChatApp/others/Toast";
 
 function App(props) {
   const { loggedIn } = props;
@@ -36,12 +37,13 @@ function App(props) {
     <Router>
       <div className="app">
         <Switch>
-          <Route path="/register/" exact component={Register} />
+          {/* <Route path="/register/" exact component={Register} />
           <Route path="/login/" exact component={Login} />
           <Route path="/notice/" exact component={ActivationNotice} />
           <Route path="/activate/:uid/:token" exact component={Activate} />
           <PrivateRoute path="/chat/" exact component={ChatApp} />
-          <Redirect from="*" to="/chat/" />
+          <Redirect from="*" to="/chat/" /> */}
+          <Toast />
         </Switch>
       </div>
     </Router>
