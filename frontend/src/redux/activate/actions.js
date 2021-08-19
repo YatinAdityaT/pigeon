@@ -1,4 +1,5 @@
 import * as actions from "./actionTypes";
+import * as toastActions from "../toast/actions";
 import fetch_ from "../../fetch_";
 
 // sends an activation post request to the /auth/users/activation/ endpoint containing
@@ -16,16 +17,16 @@ export const activate = (uid, token) => async (dispatch) => {
       body: JSON.stringify({ uid: uid, token: token }),
     });
 
-    console.log(result);
     if (!result.ok) throw new Error("Activation failed");
   } catch (err) {
-    dispatch({
+    dispatch(toastActions.addToast("Something went wrong", "failed"));
+    return dispatch({
       type: actions.ACTIVATE_FAILED,
       error: err,
     });
-    return;
   }
 
+  dispatch(toastActions.addToast("Activation successful!", "success"));
   dispatch({
     type: actions.ACTIVATE_SUCCESS,
   });

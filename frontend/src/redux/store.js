@@ -3,7 +3,7 @@
 // I am adding composeWithDevTools to see the state in the dev tools extension
 // The store exported from here is used in the index.js (within the src directory)
 import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension"; // for the dev tool
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
@@ -15,22 +15,24 @@ import {
 } from "redux-state-sync";
 
 const reduxStateSyncConfig = {
-  blacklist: ["persist/PERSIST", "persist/REHYDRATE", "toast"],
+  blacklist: ["persist/PERSIST", "persist/REHYDRATE", "toast"], // don't sync toasts or persist
 };
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["toast"],
+  blacklist: ["toast"], // don't persist toasts
 };
 
+// special custom middle ware to reset the application state
+// once RESET is called (it is called when the user logs out)
 function resetMiddleware() {
   return (next) => (reducer, initialState, enhancer) => {
     const enhanceReducer = (state, action) => {
       if (action.type === "RESET") {
-        // state = action["state"];
-        // console.log("state: ", state);
-        state = { _persist: state._persist };
+        // reset state to _persist: state._persist. Removing this will break redux persist!
+        // don't remove the toasts!
+        state = { _persist: state._persist, toast: state.toast };
       }
       return reducer(state, action);
     };
@@ -42,12 +44,12 @@ function resetMiddleware() {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
-  persistedReducer,
+  persistedReducer, // for redux persist - store the state in the localstorage so that it isn't lost at reload
   composeWithDevTools(
     applyMiddleware(
-      // logger,
-      thunk,
-      createStateSyncMiddleware(reduxStateSyncConfig)
+      logger, // logs the state in the console
+      thunk, // for async actions
+      createStateSyncMiddleware(reduxStateSyncConfig) // for redux state sync - syncs state across tabs
     ),
     resetMiddleware()
   )

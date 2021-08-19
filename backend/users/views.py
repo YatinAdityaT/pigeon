@@ -70,7 +70,7 @@ class WhoAmIView(APIView):
 
 def get_csrf(request):
     # Returns the CSRF token currently in use
-    response = JsonResponse({'details': 'CSRF cookie set'})
+    response = JsonResponse({'detail': 'CSRF cookie set'})
     response['X-CSRFToken'] = get_token(request)
     return response
 
@@ -82,7 +82,7 @@ class LoginView(APIView):
     def post(self, request):
         data = json.loads(json.dumps(request.data))
         user_email = data.get('email')
-        return JsonResponse({'logged_in': True, 'user_email': user_email})
+        return JsonResponse({"detail": "Logged in successfully!", 'logged_in': True, 'user_email': user_email})
 
 
 @ensure_csrf_cookie
@@ -93,6 +93,6 @@ def logout_view(request):
     try:
         del request.session['user_id']
     except KeyError:
-        return JsonResponse({'details': 'You are not logged in!'}, status=200)
+        return JsonResponse({'detail': 'You are not logged in!'}, status=200)
 
-    return JsonResponse({"details": "Successfully logged out"})
+    return JsonResponse({"detail": "Successfully logged out"})

@@ -30,11 +30,6 @@ const loginReducer = (state = loginState, action) => {
     case actions.LOGIN_SUCCESS:
       return login_success(state, action);
 
-    // for LOGOUT_SUCCESS
-    case actions.LOGOUT_SUCCESS:
-      persistor.purge();
-      return {};
-
     default:
       return state;
   }
