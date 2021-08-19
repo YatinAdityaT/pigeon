@@ -114,7 +114,6 @@ export const logout = () => async (dispatch) => {
     });
   }
 
-  console.log(data);
   dispatch(toastActions.addToast(data.detail, "success"));
   dispatch({
     type: actions.RESET,

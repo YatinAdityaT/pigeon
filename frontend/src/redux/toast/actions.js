@@ -3,14 +3,12 @@ import * as actions from "./actionTypes";
 import { store } from "../store";
 
 export const addToast = (description, toastType) => (dispatch) => {
-  console.log(description, toastType);
   const id = uuidv4();
   const toast = {
     id,
     description,
     toastType,
   };
-  console.log(toast);
 
   dispatch({
     type: actions.ADD_TOAST,

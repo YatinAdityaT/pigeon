@@ -7,7 +7,6 @@ export const register =
     dispatch({
       type: actions.REGISTER,
     });
-    console.log(email, username, password, re_password);
     try {
       const result = await fetch_("/auth/users/", {
         method: "POST",
@@ -27,7 +26,10 @@ export const register =
           error: err,
         });
       }
+<<<<<<< HEAD
       console.log(data);
+=======
+>>>>>>> Remove console logs
       if (!result.ok) throw new Error("Failed to register user");
     } catch (err) {
       for (var key of Object.keys(data)) {

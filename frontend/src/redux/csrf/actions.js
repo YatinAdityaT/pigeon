@@ -12,12 +12,8 @@ export const getCSRFToken = () => async (dispatch) => {
       method: "GET",
       credentials: "same-origin",
     });
-    console.log(result);
     if (!result.ok) throw new Error("Failed to get CSRF token");
-  } catch (err) {
-    console.log(err);
-    return;
-  }
+  } catch (err) {}
 
   // if successful, dispatch CSRF_TOKEN_SUCCESS to
   // store the token in state. This token will be used
