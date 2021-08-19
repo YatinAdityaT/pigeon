@@ -27,10 +27,12 @@ export const register =
           error: err,
         });
       }
-      console.log(result);
+      console.log(data);
       if (!result.ok) throw new Error("Failed to register user");
     } catch (err) {
-      dispatch(toastActions.addToast(data.detail, "failed"));
+      for (var key of Object.keys(data)) {
+        dispatch(toastActions.addToast(key + " : " + data[key], "failed"));
+      }
       return dispatch({
         type: actions.REGISTER_FAILED,
         error: err,
