@@ -26,7 +26,8 @@ function App(props) {
     if (!mounted.current) {
       if (!loggedIn) {
         // component did mount
-        // check if the user is logged in once the component mounts
+        // Check if the user's browser provided a
+        // valid session cookie
         props.checkIfLoggedIn();
       }
       mounted.current = true;
@@ -36,14 +37,14 @@ function App(props) {
   return (
     <Router>
       <div className="app">
+        <Toast />
         <Switch>
-          {/* <Route path="/register/" exact component={Register} />
+          <Route path="/register/" exact component={Register} />
           <Route path="/login/" exact component={Login} />
           <Route path="/notice/" exact component={ActivationNotice} />
           <Route path="/activate/:uid/:token" exact component={Activate} />
           <PrivateRoute path="/chat/" exact component={ChatApp} />
-          <Redirect from="*" to="/chat/" /> */}
-          <Toast />
+          <Redirect from="*" to="/chat/" />
         </Switch>
       </div>
     </Router>

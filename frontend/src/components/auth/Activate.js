@@ -24,13 +24,13 @@ function Activate(props) {
           <label className="project_name notice_project_name">pigeon</label>
         </div>
         <div className="notice">
-          {props.active ? (
-            <div className="notice_header">
-              Your account has been activated!
-            </div>
-          ) : (
-            ""
-          )}
+          <div className="notice_header">
+            {props.active ? (
+              <>Your account has been activated!</>
+            ) : (
+              <>Hm... something went wrong. Try logging in.</>
+            )}
+          </div>
           <Link to="/login/">
             <button className="btn notice_button">Login</button>
           </Link>

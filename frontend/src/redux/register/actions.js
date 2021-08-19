@@ -1,4 +1,5 @@
 import * as actions from "./actionTypes";
+import * as toastActions from "../toast/actions";
 import fetch_ from "../../fetch_";
 
 export const register =
@@ -17,16 +18,26 @@ export const register =
           re_password: re_password,
         }),
       });
+      try {
+        var data = await result.json();
+      } catch (err) {
+        dispatch(toastActions.addToast("Something went wrong :(", "failed"));
+        dispatch({
+          type: actions.REGISTER_FAILED,
+          error: err,
+        });
+      }
       console.log(result);
       if (!result.ok) throw new Error("Failed to register user");
     } catch (err) {
-      dispatch({
+      dispatch(toastActions.addToast(data.detail, "failed"));
+      return dispatch({
         type: actions.REGISTER_FAILED,
         error: err,
       });
-
-      return;
     }
+
+    dispatch(toastActions.addToast("Registration successful", "success"));
     dispatch({
       type: actions.REGISTER_SUCCESS,
     });
