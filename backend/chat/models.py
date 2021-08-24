@@ -1,11 +1,13 @@
 import uuid
-
-from django.conf import settings
 from django.db import models
+from django.contrib.auth import get_user_model
 
-# Use settings.AUTH_USER_MODEL instead of get_user_model if foreign key/many2many relations are involved
-# https://stackoverflow.com/a/40954392/11573842
-customUserModel = settings.AUTH_USER_MODEL
+userModel = get_user_model()
+
+
+class Participant(userModel):
+    def __str__(self):
+        return self.email
 
 
 class Message(models.Model):
@@ -17,17 +19,18 @@ class Message(models.Model):
         - timestamp: timestamp of the message
     """
     owner = models.ForeignKey(
-        customUserModel, related_name='messages', on_delete=models.CASCADE)
+        'Participant', related_name='owner', on_delete=models.CASCADE)
+    chat_room = models.ForeignKey('ChatGroup', on_delete=models.CASCADE)
     text = models.CharField(max_length=1000)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Message author: {self.user.username}"
+        return f"'{self.text}' by '{self.owner.username}' in '{self.chat_room}' "
 
 
-class Chat(models.Model):
+class ChatGroup(models.Model):
     """
-        Chat model
+        Chat group model
 
         - id: UUID of chat
         - group_name: Name of the chat group
@@ -37,13 +40,13 @@ class Chat(models.Model):
         - timestamp: Timestamp of group creation
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    group_name = models.CharField(max_length=30, blank=False, default="Chat")
-    # chat_owner = models.ForeignKey(
-    # User, related_name='chats', on_delete=models.CASCADE)
+    group_name = models.CharField(
+        max_length=30, blank=False, default="Group name")
+    chat_owner = models.ForeignKey(
+        "Participant", related_name='owner_chat_group', on_delete=models.CASCADE)
     participants = models.ManyToManyField(
-        customUserModel, related_name='chats', blank=True)
-    messages = models.ManyToManyField(Message, blank=True)
+        'Participant', related_name='participant_chat_group', blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Chat uuid: {self.id}'
+        return self.group_name

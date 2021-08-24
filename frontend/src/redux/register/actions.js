@@ -26,10 +26,6 @@ export const register =
           error: err,
         });
       }
-<<<<<<< HEAD
-      console.log(data);
-=======
->>>>>>> Remove console logs
       if (!result.ok) throw new Error("Failed to register user");
     } catch (err) {
       for (var key of Object.keys(data)) {

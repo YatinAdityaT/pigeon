@@ -11,3 +11,4 @@ venv
 plan.md
 **/tests/*
 **/static/
+**/migrations/*

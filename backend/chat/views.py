@@ -2,52 +2,68 @@ from .models import *
 from rest_framework import permissions, viewsets
 from .serializers import *
 from django.contrib.auth import get_user_model
-from .models import Chat
-# from rest_framework.generics import (
-#     ListAPIView,
-#     CreateAPIView,
-#     RetrieveAPIView,
-#     UpdateAPIView,
-#     DestroyAPIView,
-# )
+from .models import ChatGroup
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+)
 
 User = get_user_model()
 
 
-class ChatViewSet(viewsets.ModelViewSet):
-    queryset = Chat.objects.all()
-    permission_classes = [permissions.AllowAny, ]
-    serializer_class = ChatSerializer
-
-# class ChatListView(ListAPIView):
-#     serializer_class = ChatSerializer
-#     permission_classes = (permissions.AllowAny,)
-
-#     def get_queryset(self):
-#         queryset = Chat.objects.all()
-#         username = self.request.query_params.get('username', None)
-#         return queryset
+class ChatGroupViewSet(viewsets.ModelViewSet):
+    queryset = ChatGroup.objects.all()
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatGroupSerializer
 
 
-# class ChatDetailView(RetrieveAPIView):
-#     queryset = Chat.objects.all()
-#     serializer_class = ChatSerializer
-#     permission_classes = (permissions.AllowAny, )
+class MessageViewSet(viewsets.ModelViewSet):
+    serializer_class = MessageSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def get_queryset(self):
+        from django.contrib.auth import get_user
+        user = get_user(self.request)
+        print(user)
+        queryset = Message.objects.all()
+        chat_id = self.request.query_params.get('chat_id')
+        if chat_id:
+            queryset = Message.objects.filter(chat_room_id=chat_id)
+        return queryset
 
 
-# class ChatCreateView(CreateAPIView):
-#     queryset = Chat.objects.all()
-#     serializer_class = ChatSerializer
-#     permission_classes = (permissions.IsAuthenticated, )
+class ChatGroupListView(ListAPIView):
+    serializer_class = ChatGroupSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def get_queryset(self):
+        queryset = ChatGroup.objects.all()
+        username = self.request.query_params.get('username', None)
+        return queryset
 
 
-# class ChatUpdateView(UpdateAPIView):
-#     queryset = Chat.objects.all()
-#     serializer_class = ChatSerializer
-#     permission_classes = (permissions.IsAuthenticated, )
+class ChatGroupDetailView(RetrieveAPIView):
+    queryset = ChatGroup.objects.all()
+    serializer_class = ChatGroupSerializer
+    permission_classes = (permissions.AllowAny, )
 
 
-# class ChatDeleteView(DestroyAPIView):
-#     queryset = Chat.objects.all()
-#     serializer_class = ChatSerializer
-#     permission_classes = (permissions.IsAuthenticated, )
+class ChatGroupCreateView(CreateAPIView):
+    queryset = ChatGroup.objects.all()
+    serializer_class = ChatGroupSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+
+class ChatGroupUpdateView(UpdateAPIView):
+    queryset = ChatGroup.objects.all()
+    serializer_class = ChatGroupSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+
+class ChatGroupDeleteView(DestroyAPIView):
+    queryset = ChatGroup.objects.all()
+    serializer_class = ChatGroupSerializer
+    permission_classes = (permissions.IsAuthenticated, )

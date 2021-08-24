@@ -5,14 +5,27 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('email', 'username', 'date_joined',
-                    'last_login', 'is_admin', 'is_active')
-    fields = ('email', 'username', 'is_active')
-    search_fields = ('email', 'username')
-    readonly_fields = ('id', 'date_joined', 'last_login')
-    filter_horizontal = ()
-    last_filter = ()
-    fieldsets = ()
+    list_display = ('email', 'username',
+                    'is_admin', 'is_active')
+    fieldsets = (
+        (None, {'fields': ('email',
+                           'username', 'password')}),
+        ('Permissions', {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+    )
 
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'password1', 'password2', 'email')}
+         ),
+    )
+
+
+try:
+    admin.site.unregister(User)
+except:
+    pass
 
 admin.site.register(CustomUser, CustomUserAdmin)
