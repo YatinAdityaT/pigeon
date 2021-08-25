@@ -1,3 +1,4 @@
+from django.http import request
 from .models import *
 from rest_framework import permissions, viewsets
 from .serializers import *
@@ -22,12 +23,9 @@ class ChatGroupViewSet(viewsets.ModelViewSet):
 
 class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
-    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
-        from django.contrib.auth import get_user
-        user = get_user(self.request)
-        print(user)
+        print(self.request.user)
         queryset = Message.objects.all()
         chat_id = self.request.query_params.get('chat_id')
         if chat_id:

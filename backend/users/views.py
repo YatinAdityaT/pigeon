@@ -19,7 +19,7 @@ class SessionView(APIView):
         print("In session view")
         session_request = request.session
         session_key_request = session_request.session_key
-        print(session_request)
+        print(session_request, session_key_request)
 
         if not session_key_request:
             return JsonResponse({'isLoggedIn': False, "error": "Browser didn't attach session cookie"}, status=400)
