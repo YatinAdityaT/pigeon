@@ -9,7 +9,8 @@ urlpatterns = [
     path('chat/', include('frontend.urls')),
     path("", include('backend.chat.urls')),
     path('', include('backend.users.urls')),
-
-    # for all urls react router
-    # re_path(r'^.*/', index)
 ]
+
+
+paths = ['login/', 'register/', 'activate/']
+urlpatterns += [path(url_path, index) for url_path in paths]

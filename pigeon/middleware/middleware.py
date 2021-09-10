@@ -7,6 +7,9 @@ User = get_user_model()
 # https://stackoverflow.com/a/5377282/11573842
 # ^ replacing the default get_user function
 # Modified version of this: https://github.com/django/django/blob/d7394cfa13a4d1a02356e3a83e10ec100fbb9948/django/contrib/auth/__init__.py#L169
+SESSION_KEY = '_auth_user_id'
+BACKEND_SESSION_KEY = '_auth_user_backend'
+HASH_SESSION_KEY = '_auth_user_hash'
 
 
 def get_user(request):
@@ -18,26 +21,23 @@ def get_user(request):
     user = None
     try:
         user_id = request.session['user_id']
-    except KeyError:
-        pass
-    else:
         user = User.objects.get(id=user_id)
         session_id = request.COOKIES['sessionid']
-        from django.utils.crypto import constant_time_compare
-        session_id_verified = session_id and constant_time_compare(
-            session_id,
-            user.get_session_auth_hash()
-        )
-        if not session_id_verified:
-            if not session_id:
-                request.session.flush()
-                user = None
+    except Exception as e:
+        pass
+    else:
+        if not session_id:
+            request.session.flush()
+            user = None
 
-    return user or AnonymousUser()
+    if user != None:
+        return user
+    else:
+        return AnonymousUser()
 
 
 # taken from https://github.com/django/django/blob/d7394cfa13a4d1a02356e3a83e10ec100fbb9948/django/contrib/auth/middleware.py#L9
-class AuthenticationMiddleware(MiddlewareMixin):
+class CustomAuthenticationMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if not hasattr(request, 'session'):
             raise ImproperlyConfigured(
@@ -47,4 +47,4 @@ class AuthenticationMiddleware(MiddlewareMixin):
                 "'django.contrib.sessions.middleware.SessionMiddleware' before "
                 "'django.contrib.auth.middleware.AuthenticationMiddleware'."
             )
-        request.user = SimpleLazyObject(lambda: get_user(request))
+        request.custom_user = get_user(request)

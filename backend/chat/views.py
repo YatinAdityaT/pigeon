@@ -1,67 +1,84 @@
-from django.http import request
-from .models import *
-from rest_framework import permissions, viewsets
-from .serializers import *
 from django.contrib.auth import get_user_model
-from .models import ChatGroup
-from rest_framework.generics import (
-    ListAPIView,
-    CreateAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
-    DestroyAPIView,
-)
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView,
+                                     UpdateAPIView)
+
+from .models import ChatGroup, Invitation, Message
+from .permissions import IsParticipantOr404
+from .serializers import ChatGroupSerializer, MessageSerializer, InvitationSerializer
 
 User = get_user_model()
 
 
-class ChatGroupViewSet(viewsets.ModelViewSet):
-    queryset = ChatGroup.objects.all()
-    permission_classes = [permissions.IsAuthenticated, ]
-    serializer_class = ChatGroupSerializer
-
-
-class MessageViewSet(viewsets.ModelViewSet):
-    serializer_class = MessageSerializer
-
-    def get_queryset(self):
-        print(self.request.user)
-        queryset = Message.objects.all()
-        chat_id = self.request.query_params.get('chat_id')
-        if chat_id:
-            queryset = Message.objects.filter(chat_room_id=chat_id)
-        return queryset
-
-
 class ChatGroupListView(ListAPIView):
     serializer_class = ChatGroupSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = [IsParticipantOr404]
 
     def get_queryset(self):
-        queryset = ChatGroup.objects.all()
-        username = self.request.query_params.get('username', None)
+        queryset = ChatGroup.objects.filter(
+            id=self.kwargs.get('chat_id'))
         return queryset
 
 
-class ChatGroupDetailView(RetrieveAPIView):
-    queryset = ChatGroup.objects.all()
-    serializer_class = ChatGroupSerializer
-    permission_classes = (permissions.AllowAny, )
+class MessageListView(ListAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [IsParticipantOr404]
+
+    def get_queryset(self):
+        queryset = Message.objects.filter(
+            chat_room__id=self.kwargs.get('chat_id'))
+        return queryset
+
+
+class InvitationListView(ListAPIView):
+    serializer_class = InvitationSerializer
+    permission_classes = [IsParticipantOr404]
+
+    def get_queryset(self):
+        queryset = Invitation.objects.filter(
+            chat_room__id=self.kwargs.get('chat_id'))
+        return queryset
+
+# ---------------------------------------------------------
 
 
 class ChatGroupCreateView(CreateAPIView):
-    queryset = ChatGroup.objects.all()
     serializer_class = ChatGroupSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    # permission_classes = [IsParticipantOr404]
 
 
-class ChatGroupUpdateView(UpdateAPIView):
-    queryset = ChatGroup.objects.all()
-    serializer_class = ChatGroupSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+class MessageCreateView(CreateAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [IsParticipantOr404]
 
 
-class ChatGroupDeleteView(DestroyAPIView):
-    queryset = ChatGroup.objects.all()
-    serializer_class = ChatGroupSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+class InvitationCreateView(CreateAPIView):
+    serializer_class = InvitationSerializer
+    permission_classes = [IsParticipantOr404]
+
+# --------------------------------------------------
+
+
+# class ChatGroupListView(UpdateAPIView):
+#     serializer_class = ChatGroupSerializer
+#     permission_classes = [IsParticipantOr404]
+
+
+# class MessageListView(UpdateAPIView):
+#     serializer_class = MessageSerializer
+#     permission_classes = [IsParticipantOr404]
+
+#     def get_queryset(self):
+#         queryset = Message.objects.filter(
+#             chat_room__id=self.kwargs.get('chat_id'))
+#         return queryset
+
+
+# class InvitationListView(UpdateAPIView):
+#     serializer_class = InvitationSerializer
+#     permission_classes = [IsParticipantOr404]
+
+#     def get_queryset(self):
+#         queryset = Invitation.objects.filter(
+#             chat_room__id=self.kwargs.get('chat_id'))
+#         return queryset

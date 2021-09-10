@@ -91,6 +91,7 @@ def logout_view(request):
     permission_classes = [IsAuthenticated]
 
     try:
+        # clear session from db
         del request.session['user_id']
     except KeyError:
         return JsonResponse({'detail': 'You are not logged in!'}, status=200)

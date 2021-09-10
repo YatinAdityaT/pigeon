@@ -1,8 +1,20 @@
-from rest_framework import routers
-from .views import *
+from .views import ChatGroupListView, MessageListView, ChatGroupCreateView
+from django.urls import re_path, include, path
 
-router = routers.DefaultRouter()
-router.register('api/chats', ChatGroupViewSet, 'chats')
-router.register('api/messages', MessageViewSet, 'messages')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path(r'api/', include([
+
+        path('chats/create',
+             ChatGroupCreateView.as_view()),
+
+        re_path(r'messages/(?P<chat_id>[\w-]+)',
+                MessageListView.as_view(),
+                name='messages in a chat'),
+
+        re_path(r'chats/(?P<chat_id>[\w-]+)',
+                ChatGroupListView.as_view(),
+                name='chat details'),
+
+    ]))
+]
