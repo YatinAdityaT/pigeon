@@ -21,7 +21,7 @@ def get_user(request):
     user = None
     try:
         user_id = request.session['user_id']
-        user = User.objects.get(id=user_id)
+        user = User.objects.get(email=user_id)
         session_id = request.COOKIES['sessionid']
     except Exception as e:
         pass

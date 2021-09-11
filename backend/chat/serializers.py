@@ -1,3 +1,4 @@
+from django.core.checks import messages
 from rest_framework import serializers
 from .models import Invitation, Message, ChatGroup
 from django.contrib.auth import get_user_model
@@ -31,7 +32,7 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 class ParticipantSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'username', 'is_active',
+        fields = ('email', 'username', 'is_active',
                   'date_joined', 'last_login', 'profile_image')
 
 
@@ -42,12 +43,26 @@ class InvitationSerializer(DynamicFieldsModelSerializer):
 
 
 class MessageSerializer(DynamicFieldsModelSerializer):
-    owner = ParticipantSerializer(
-        read_only=True, fields=('email', 'username'))
+    def create(self, validated_data):
+        message = Message(
+            owner=validated_data['owner'],
+            chat_room=validated_data['chat_room'],
+            text=validated_data['text']
+        )
+        message.save()
+        return message
+
+    def update(self, instance, validated_data):
+        print('this was called')
+        instance.text = validated_data.get(
+            'text', instance.text)
+        instance.save()
+        return instance
 
     class Meta:
         model = Message
-        fields = ('owner', 'text', 'timestamp')
+        fields = ('owner', 'chat_room', 'text')
+        read_only_fields = ['id', 'timestamp']
 
 
 class ChatGroupSerializer(DynamicFieldsModelSerializer):
@@ -58,14 +73,28 @@ class ChatGroupSerializer(DynamicFieldsModelSerializer):
         return super().to_representation(instance)
 
     def create(self, validated_data):
-        print(validated_data)
-        # chat_group = ChatGroup(
-        #     group_name = validated_data['group_name'],
-        #     chat_owner = validated_data['group_name'],
-        #     group_name = validated_data['group_name'],
-        # )
 
-    # def update(self): pass
+        chat_group = ChatGroup(
+            group_name=validated_data['group_name'],
+            chat_owner=validated_data['chat_owner']
+        )
+
+        chat_group.save()
+
+        for participant in validated_data['participants']:
+            chat_group.participants.add(participant)
+
+        chat_group.save()
+
+        return chat_group
+
+    def update(self, instance, validated_data):
+        instance.group_name = validated_data.get(
+            'group_name', instance.group_name)
+        for participant in validated_data.get('participants', []):
+            instance.participants.add(participant)
+        instance.save()
+        return instance
 
     class Meta:
         model = ChatGroup

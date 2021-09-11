@@ -13,7 +13,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     # set email field to be unique
     email = models.EmailField(
-        verbose_name='email address', max_length=60, unique=True)
+        verbose_name='email address', max_length=60, primary_key=True)
     username = models.CharField(max_length=40, unique=True)
 
     # by default, user accounts will not be admin accounts or superusers

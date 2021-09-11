@@ -1,6 +1,5 @@
 import uuid
 from django.db import models
-from django.contrib.auth import get_user_model
 
 
 class Message(models.Model):
@@ -11,6 +10,7 @@ class Message(models.Model):
         - text: content of the message
         - timestamp: timestamp of the message
     """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     owner = models.ForeignKey(
         'users.CustomUser', related_name='owner', on_delete=models.CASCADE)
     chat_room = models.ForeignKey('ChatGroup', on_delete=models.CASCADE)
@@ -36,13 +36,13 @@ class ChatGroup(models.Model):
     group_name = models.CharField(
         max_length=30, blank=False, default="Group name")
     chat_owner = models.ForeignKey(
-        "users.CustomUser", to_field='email', related_name='owner_chat_group', on_delete=models.CASCADE)
+        "users.CustomUser",  related_name='owner_chat_group', on_delete=models.CASCADE)
     participants = models.ManyToManyField(
         'users.CustomUser', related_name='participant_chat_group', blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.group_name
+        return f"{self.group_name}  :   {self.id}"
 
 
 class Invitation(models.Model):

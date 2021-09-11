@@ -50,7 +50,7 @@ class SessionView(APIView):
 
         # get the user object for corresponding to that user id
         User = get_user_model()
-        user = User.objects.get(id=user_id_db)
+        user = User.objects.get(email=user_id_db)
 
         # check if that user is active and not anonymous
         if not user.is_active or not user.is_authenticated:

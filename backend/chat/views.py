@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.db.models import query
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView,
                                      UpdateAPIView)
@@ -44,12 +45,11 @@ class InvitationListView(ListAPIView):
 
 class ChatGroupCreateView(CreateAPIView):
     serializer_class = ChatGroupSerializer
-    # permission_classes = [IsParticipantOr404]
 
 
 class MessageCreateView(CreateAPIView):
     serializer_class = MessageSerializer
-    permission_classes = [IsParticipantOr404]
+    # permission_classes = [IsParticipantOr404]
 
 
 class InvitationCreateView(CreateAPIView):
@@ -59,9 +59,16 @@ class InvitationCreateView(CreateAPIView):
 # --------------------------------------------------
 
 
-# class ChatGroupListView(UpdateAPIView):
-#     serializer_class = ChatGroupSerializer
-#     permission_classes = [IsParticipantOr404]
+class ChatGroupUpdateView(UpdateAPIView):
+    queryset = ChatGroup.objects.all()
+    serializer_class = ChatGroupSerializer
+    # permission_classes = [IsParticipantOr404]
+
+
+class MessageUpdateView(UpdateAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [IsParticipantOr404]
+    queryset = Message.objects.all()
 
 
 # class MessageListView(UpdateAPIView):
