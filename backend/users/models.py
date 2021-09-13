@@ -11,10 +11,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # username as the unique identifier. We will be overriding all the following
     # fields of the AbstractBaseUser class.
 
-    # set email field to be unique
+    # set email field is the primary key
     email = models.EmailField(
-        verbose_name='email address', max_length=60, primary_key=True)
-    username = models.CharField(max_length=40, unique=True)
+        verbose_name='email address',
+        max_length=60,
+        primary_key=True)
+    username = models.CharField(
+        max_length=40,
+        unique=True)
 
     # by default, user accounts will not be admin accounts or superusers
     # by default, each account will be active (deactivate ~ deleting the account)
@@ -25,16 +29,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     # automatically store the date-time of joining and last login
     date_joined = models.DateTimeField(
-        verbose_name="date joined", auto_now_add=True)
+        verbose_name="date joined",
+        auto_now_add=True)
     last_login = models.DateTimeField(
-        verbose_name="last joined", auto_now=True)
+        verbose_name="last joined",
+        auto_now=True)
 
     # profile image is optional and default image is provided
     def return_profile_image_path(self, filename):
         return f"profile_images/{self.pk}/profile_image.png"
 
     profile_image = models.ImageField(
-        max_length=255, upload_to=return_profile_image_path, null=True, blank=True, default=f"profile_images/default.png")
+        max_length=255,
+        upload_to=return_profile_image_path,
+        null=True,
+        blank=True,
+        default=f"profile_images/default.png")
 
     USERNAME_FIELD = 'email'  # make the email field to be the unique identifier
     REQUIRED_FIELDS = ['username']  # the fields that are required to be filled

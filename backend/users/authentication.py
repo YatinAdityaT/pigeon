@@ -1,5 +1,4 @@
 # used for login view. Authenticates the user given the email and password
-from django.utils.module_loading import import_string
 import json
 
 from django.contrib.auth import authenticate, get_user_model

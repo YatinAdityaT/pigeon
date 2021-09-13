@@ -1,15 +1,11 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.deprecation import MiddlewareMixin
-from django.utils.functional import SimpleLazyObject
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # https://stackoverflow.com/a/5377282/11573842
 # ^ replacing the default get_user function
 # Modified version of this: https://github.com/django/django/blob/d7394cfa13a4d1a02356e3a83e10ec100fbb9948/django/contrib/auth/__init__.py#L169
-SESSION_KEY = '_auth_user_id'
-BACKEND_SESSION_KEY = '_auth_user_backend'
-HASH_SESSION_KEY = '_auth_user_hash'
 
 
 def get_user(request):

@@ -30,6 +30,10 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class ParticipantSerializer(DynamicFieldsModelSerializer):
+    """
+        display: email, username, is_active, date_joined, last_login and 
+                 profile_image
+    """
     class Meta:
         model = User
         fields = ('email', 'username', 'is_active',
@@ -37,12 +41,47 @@ class ParticipantSerializer(DynamicFieldsModelSerializer):
 
 
 class InvitationSerializer(DynamicFieldsModelSerializer):
+    """
+        to_representation: 
+                Add all fields from the chat group
+        create: 
+            Input: chat_room, participant_email
+            Output: new invitation
+        display: all fields
+    """
+
+    def to_representation(self, instance):
+        self.fields['chat_room'] = ChatGroupSerializer(
+            read_only=True)
+        return super().to_representation(instance)
+
+    def create(self, validated_data):
+        invitation = Invitation(
+            chat_room=validated_data['chat_room'],
+            participant_email=validated_data['participant_email']
+        )
+        invitation.save()
+        return invitation
+
     class Meta:
         model = Invitation
         fields = '__all__'
 
 
 class MessageSerializer(DynamicFieldsModelSerializer):
+    """
+        create: 
+            Inputs: owner, chat_room and text
+            Outputs: a new message
+
+        update:
+            Inputs: instance, new text
+            Output: updated instance of a message
+
+        displays:
+            owner, chat_room and text. 
+    """
+
     def create(self, validated_data):
         message = Message(
             owner=validated_data['owner'],
@@ -53,7 +92,6 @@ class MessageSerializer(DynamicFieldsModelSerializer):
         return message
 
     def update(self, instance, validated_data):
-        print('this was called')
         instance.text = validated_data.get(
             'text', instance.text)
         instance.save()
@@ -66,6 +104,19 @@ class MessageSerializer(DynamicFieldsModelSerializer):
 
 
 class ChatGroupSerializer(DynamicFieldsModelSerializer):
+    """
+        to_representation:
+            adds details of the participantSerializer
+            to the participants field.
+        create: 
+            Input: group_name, participants and owner
+            Output: a new chat group
+        update:
+            Input: group_name & participants
+            Output: updated group instance
+        display:
+            id, group_name, chat_owner, timestamp & participants
+    """
 
     def to_representation(self, instance):
         self.fields['participants'] = ParticipantSerializer(

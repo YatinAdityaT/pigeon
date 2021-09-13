@@ -24,7 +24,7 @@ export const login = (email, password) => async (dispatch) => {
     } catch (err) {
       // In case of failure in converting
       // the result to json. Notify the user
-      // the "something" went wrong and exit
+      // that "something" went wrong and exit
 
       dispatch(toastActions.addToast("Something went wrong :(", "failed"));
       return dispatch({
