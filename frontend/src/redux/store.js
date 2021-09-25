@@ -47,7 +47,7 @@ const store = createStore(
   persistedReducer, // for redux persist - store the state in the localstorage so that it isn't lost at reload
   composeWithDevTools(
     applyMiddleware(
-      logger, // logs the state in the console
+      // logger, // logs the state in the console
       thunk, // for async actions
       createStateSyncMiddleware(reduxStateSyncConfig) // for redux state sync - syncs state across tabs
     ),

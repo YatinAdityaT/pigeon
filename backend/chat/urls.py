@@ -2,11 +2,12 @@ from django.urls import include, path, re_path
 
 from .views import (
     ChatGroupCreateView, ChatGroupDestroyView,
-    ChatGroupDetailView, ChatGroupListView,
+    ChatGroupListView,
     ChatGroupUpdateView, InvitationCreateView,
     InvitationDestroyView, InvitationListView,
     MessageCreateView, MessageDestroyView,
     MessageListView, MessageUpdateView
+    # ChatGroupDetailView
 )
 
 urlpatterns = [
@@ -19,10 +20,10 @@ urlpatterns = [
         path('chats/create',
              ChatGroupCreateView.as_view()),
 
-        # Get the details of a specific chat group
-        re_path(r'chats/(?P<chat_id>[\w-]{36})',
-                ChatGroupDetailView.as_view(),
-                name='chat details'),
+        # # Get the details of a specific chat group
+        # re_path(r'chats/(?P<chat_id>[\w-]{36})',
+        #         ChatGroupDetailView.as_view(),
+        #         name='chat details'),
 
         # Update a chat group's details
         re_path(r'chats/update/(?P<chat_id>[\w-]{36})',

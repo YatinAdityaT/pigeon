@@ -120,7 +120,8 @@ class ChatGroupSerializer(DynamicFieldsModelSerializer):
 
     def to_representation(self, instance):
         self.fields['participants'] = ParticipantSerializer(
-            many=True, read_only=True)
+            many=True,
+            read_only=True)
         return super().to_representation(instance)
 
     def create(self, validated_data):

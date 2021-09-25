@@ -2,56 +2,80 @@ import * as actions from "./actionTypes";
 import * as toastActions from "../toast/actions";
 import fetch_ from "../../fetch_";
 
-export const get_chat_groups = (email) => async (dispatch) => {
+export const get_chat_groups = () => async (dispatch) => {
   dispatch({
-    type: actions.LOGIN,
+    type: actions.GET_CHAT_GROUPS,
+  });
+
+  dispatch({
+    type: actions.CLEAR_ACTIVE,
   });
 
   try {
-    // try to fetch a url
-    const result = await fetch_("/auth/login/", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
+    const result = await fetch_("/api/chats/", {
+      method: "GET",
     });
 
     try {
-      // Await the result, get the data
-      // and put it in the global state
       var data = await result.json();
     } catch (err) {
-      // In case of failure in converting
-      // the result to json. Notify the user
-      // the "something" went wrong and exit
-
-      dispatch(toastActions.addToast("Something went wrong :(", "failed"));
+      dispatch(toastActions.addToast("Failed to fetch chats!", "failed"));
       return dispatch({
-        type: actions.LOGIN_FAILED,
+        type: actions.CHAT_GROUPS_FAILED,
         err,
       });
     }
-
-    // Check if the request is ok. If it is not ok
-    // then throw an error for the catch statement
-    // to catch
-    if (!result.ok) throw new Error("Failed to login");
+    if (!result.ok) throw new Error("Failed to fetch chats!");
   } catch (err) {
-    // result.ok was false, notify the user about the
-    // server's response and fail the log-in process
-    // and exit
     dispatch(toastActions.addToast(data.detail, "failed"));
     return dispatch({
-      type: actions.LOGIN_FAILED,
+      type: actions.CHAT_GROUPS_FAILED,
       err,
     });
   }
 
-  // All ok, notify the user and log them in
   dispatch({
-    type: actions.LOGIN_SUCCESS,
-    // user_email: res.data.user_email, FIX_ME!
+    type: actions.CHAT_GROUPS_SUCCESS,
+    chatGroups: data,
   });
-  dispatch(toastActions.addToast(data.detail, "success"));
+  dispatch(toastActions.addToast("Chats fetched successfully!", "success"));
+};
+
+export const clicked_on_group = (groupId) => (dispatch) => {
+  dispatch({ type: actions.SELECT_GROUP, groupId });
+};
+
+export const get_messages = (groupId) => async (dispatch) => {
+  dispatch({
+    type: actions.GET_MESSAGES,
+  });
+
+  try {
+    const result = await fetch_("/api/messages/" + groupId, {
+      method: "GET",
+    });
+
+    try {
+      var data = await result.json();
+    } catch (err) {
+      dispatch(toastActions.addToast("Failed to fetch messages!", "failed"));
+      return dispatch({
+        type: actions.GET_MESSAGES_FAILURE,
+        err,
+      });
+    }
+    if (!result.ok) throw new Error("Failed to fetch messages!");
+  } catch (err) {
+    dispatch(toastActions.addToast(data.detail, "failed"));
+    return dispatch({
+      type: actions.GET_MESSAGES_FAILURE,
+      err,
+    });
+  }
+
+  dispatch({
+    type: actions.GET_MESSAGES_SUCCESS,
+    messages: data,
+  });
+  dispatch(toastActions.addToast("Messages fetched successfully!", "success"));
 };

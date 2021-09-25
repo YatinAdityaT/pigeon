@@ -8,6 +8,7 @@ import registerReducer from "./register/reducer";
 import chatReducer from "./chat/reducer";
 import appReducer from "./chat/reducer";
 import toastReducer from "./toast/reducer";
+import chatGroupReducer from "./groups/reducer";
 
 const rootReducer = combineReducers({
   chat: chatReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   csrf: csrfReducer,
   app: appReducer,
   toast: toastReducer,
+  chatGroup: chatGroupReducer,
 });
 
 export default rootReducer;

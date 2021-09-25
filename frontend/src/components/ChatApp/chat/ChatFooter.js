@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/ChatFooter.css";
+import { connect } from "react-redux";
 
 function ChatFooter() {
   return (
@@ -15,4 +16,18 @@ function ChatFooter() {
   );
 }
 
-export default ChatFooter;
+const mapStateToProps = (state) => {
+  return {
+    activeGroup: state.chatGroup.activeGroup,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // getGroups: () => {
+    // dispatch(get_chat_groups());
+    // },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatFooter);

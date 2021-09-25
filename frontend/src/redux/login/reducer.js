@@ -1,14 +1,11 @@
-import { loginState } from "./state";
-import { PURGE } from "redux-persist";
 import * as actions from "./actionTypes";
-import { persistor } from "../store";
+import { loginState } from "./state";
 
 const login_success = (state, action) => {
   return {
     ...state,
     loggedIn: true,
-    // userEmail: action.user_email, FIX_ME!
-    // sessionId: action.session_id,
+    userEmail: action.user_email,
   };
 };
 
@@ -16,8 +13,7 @@ const login_failed = (state, action) => {
   return {
     ...state,
     loggedIn: false,
-    // userEmail: null,
-    // sessionId: null,
+    userEmail: null,
   };
 };
 

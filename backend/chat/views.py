@@ -44,8 +44,10 @@ class MessageListView(ListAPIView):
     permission_classes = [IsParticipantOr404]
 
     def get_queryset(self):
+        print(self.kwargs.get('chat_id'))
         queryset = Message.objects.filter(
-            chat_room__id=self.kwargs.get('pk'))
+            chat_room__id=self.kwargs.get('chat_id'))
+        print(queryset)
         return queryset
 
 
@@ -67,18 +69,20 @@ class InvitationListView(ListAPIView):
         return queryset
 
 
-# ---------------------Detail------------------------------------
-class ChatGroupDetailView(ListAPIView):
-    """
-        A chat groups detail view
-    """
-    serializer_class = ChatGroupSerializer
-    permission_classes = [IsParticipantOr404]
+# # ---------------------Detail------------------------------------
+# class ChatGroupDetailView(ListAPIView):
+#     """
+#         A chat groups detail view
+#     """
+#     serializer_class = ChatGroupSerializer
+#     permission_classes = [IsParticipantOr404]
 
-    def get_queryset(self):
-        queryset = ChatGroup.objects.get(
-            id=self.kwargs.get('chat_id'))
-        return queryset
+#     def get_queryset(self):
+#         queryset = ChatGroup.objects.get(
+#             id=self.kwargs.get('chat_id')
+#         )
+#         print(queryset)
+#         return queryset
 
 # ---------------------Create------------------------------------
 

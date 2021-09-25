@@ -1,4 +1,6 @@
-from django.db.models.signals import m2m_changed
+from backend.chat.utils import filter_email
+from channels.layers import get_channel_layer
+from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
 from .models import ChatGroup, Invitation
 

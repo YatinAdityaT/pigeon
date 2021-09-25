@@ -51,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
   // All ok, notify the user and log them in
   dispatch({
     type: actions.LOGIN_SUCCESS,
-    // user_email: res.data.user_email, FIX_ME!
+    user_email: data.user_email,
   });
   dispatch(toastActions.addToast(data.detail, "success"));
 };
@@ -81,7 +81,7 @@ export const checkLogin = () => async (dispatch) => {
   dispatch(toastActions.addToast(data.detail, "success"));
   dispatch({
     type: actions.LOGIN_SUCCESS,
-    // user_email: FIX_ME!
+    user_email: data.user_email,
   });
 };
 

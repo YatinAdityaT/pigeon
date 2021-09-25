@@ -1,4 +1,7 @@
 import uuid
+from asgiref.sync import async_to_sync
+from backend.users.models import CustomUser
+from channels.layers import get_channel_layer
 from django.db import models
 
 
@@ -99,3 +102,26 @@ class Invitation(models.Model):
                 name='one invitation per email per chat room'
             )
         ]
+
+    def save(self, *args, **kwargs):
+        """
+            On save of the Invitation object, notify the user
+            who was added to added to a group.
+
+            Calls the send_group_list function in 
+            PrivateChannelConsumer.
+        """
+        super().save(*args, **kwargs)
+
+        channel_layer = get_channel_layer()
+        channel_name = CustomUser.objects.get(
+            email=self.participant_email).private_channel_layer
+
+        if channel_name:
+            async_to_sync(channel_layer.group_send)(
+                channel_name,
+                {
+                    "type": "send_group_list",
+                    "email": self.participant_email
+                }
+            )

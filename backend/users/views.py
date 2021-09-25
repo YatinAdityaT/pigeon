@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
+from backend.chat.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from .authentication import EmailCustomAuthentication

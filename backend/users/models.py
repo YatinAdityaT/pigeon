@@ -16,9 +16,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name='email address',
         max_length=60,
         primary_key=True)
-    username = models.CharField(
-        max_length=40,
-        unique=True)
+
+    username = models.CharField(max_length=40)
+
+    # store the channel name of private channels which are created
+    # for users to get information directly from the backend via ws
+    private_channel_layer = models.CharField(blank=True, max_length=80)
 
     # by default, user accounts will not be admin accounts or superusers
     # by default, each account will be active (deactivate ~ deleting the account)
@@ -54,10 +57,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         # str function to get the username as output in the admin
         return self.username
-
-    def has_perm(self, perm, obj=None):
-        # returns if a user has admin permissions
-        return self.is_admin
-
-    def has_module_perms(self, app_label):
-        return True
