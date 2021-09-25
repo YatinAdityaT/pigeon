@@ -6,13 +6,6 @@ import ChatHeader from "./ChatHeader";
 import { connect } from "react-redux";
 
 function Chat({ activeGroup }) {
-  useEffect(() => {
-    // const socket = new WebSocket("ws://localhost:8000/chat/");
-    // socket.onmessage = (event) => {
-    //   console.log(event);
-    // };
-    // socket.send("test");
-  }, []);
   return (
     <div className="chat">
       {activeGroup ? (
@@ -35,11 +28,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    // getGroups: () => {
-    // dispatch(get_chat_groups());
-    // },
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

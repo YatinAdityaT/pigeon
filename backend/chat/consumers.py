@@ -1,4 +1,5 @@
 import json
+import re
 from backend.chat.utils import filter_email
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -15,17 +16,19 @@ def get_user_email(session_id):
         Gets the user's email from a given 
         session_id
     """
+    value = None
     session = Session.objects.get(session_key=session_id)
     decoded = session.get_decoded()
 
     try:
         value = decoded['user_id']
+
     except KeyError:
         # for admin users
-        value = decoded['_auth_user_id']
-    else:
-        value = None
-
+        try:
+            value = decoded['_auth_user_id']
+        except:
+            value = None
     return value
 
 
@@ -93,11 +96,14 @@ class PrivateChannelConsumer(AsyncWebsocketConsumer):
 
         for (key, value) in headers:
             if key == b"cookie":
-                self.session_id = value.decode("utf-8").replace(
-                    'sessionid=', '')
+                string = value.decode('utf-8')  # convert bytes to string
+                self.session_id = re.findall(
+                    r'sessionid=([\w]{32})',
+                    string
+                )[0]  # get the session id
                 try:
                     self.user_email = await get_user_email(self.session_id)
-                except:
+                except Exception as e:
                     await self.close()
 
         all_ok = await check_exists_and_authenticated(self.user_email)
@@ -113,7 +119,10 @@ class PrivateChannelConsumer(AsyncWebsocketConsumer):
             await self.accept()
 
             # update the private channel layer value stored in the db
-            await update_private_channel_layer_value(self.user_email, self.room_group_name)
+            await update_private_channel_layer_value(
+                self.user_email,
+                self.room_group_name
+            )
 
             # send group names
             await self.channel_layer.group_send(

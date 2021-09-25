@@ -6,16 +6,15 @@ import NewGroup from "./NewGroup";
 import { connect } from "react-redux";
 import { get_chat_groups } from "../../../redux";
 
-function Sidebar({ groups, getGroups }) {
-  useEffect(() => {
-    getGroups();
-  }, []);
+function Sidebar({ groups }) {
   return (
     <div className="sidebar">
       <UserCard />
       <NewGroup />
       {groups.map((element) => {
-        return <GroupCard {...element} />;
+        return (
+          <GroupCard group_id={element[1][0]} group_name={element[1][1]} />
+        );
       })}
       <div className="sidebar__group_cards"></div>
     </div>
@@ -28,11 +27,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getGroups: () => {
-      dispatch(get_chat_groups());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => {};
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
