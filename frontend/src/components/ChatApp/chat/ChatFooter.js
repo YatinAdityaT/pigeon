@@ -23,11 +23,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    // getGroups: () => {
-    // dispatch(get_chat_groups());
-    // },
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatFooter);

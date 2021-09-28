@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./css/Sidebar.css";
 import GroupCard from "./GroupCard";
 import UserCard from "./UserCard";
 import NewGroup from "./NewGroup";
 import { connect } from "react-redux";
-import { get_chat_groups } from "../../../redux";
 
-function Sidebar({ groups }) {
+function Sidebar({ group_list }) {
   return (
     <div className="sidebar">
       <UserCard />
       <NewGroup />
-      {groups.map((element) => {
-        return (
-          <GroupCard group_id={element[1][0]} group_name={element[1][1]} />
-        );
+      {group_list?.map((element) => {
+        const key = Object.keys(element)[0];
+        const group_name = element[key]["chat_room_name"];
+        return <GroupCard group_id={key} group_name={group_name} />;
       })}
       <div className="sidebar__group_cards"></div>
     </div>
@@ -23,9 +22,11 @@ function Sidebar({ groups }) {
 
 const mapStateToProps = (state) => {
   return {
-    groups: state.chatGroup.chatGroups,
+    group_list: state.chatGroup.group_list,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {};
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

@@ -5,13 +5,11 @@ import activateReducer from "./activate/reducer";
 import csrfReducer from "./csrf/reducer";
 import loginReducer from "./login/reducer";
 import registerReducer from "./register/reducer";
-import chatReducer from "./chat/reducer";
-import appReducer from "./chat/reducer";
+import appReducer from "./app/reducer";
 import toastReducer from "./toast/reducer";
 import chatGroupReducer from "./groups/reducer";
 
 const rootReducer = combineReducers({
-  chat: chatReducer,
   login: loginReducer,
   register: registerReducer,
   activate: activateReducer,

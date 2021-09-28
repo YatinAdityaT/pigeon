@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import group_image from "../../../assets/group_image.png";
 
 function ChatHeader({ activeGroup }) {
+  const key = Object.keys(activeGroup)[0];
   return (
     <>
       <div className="header_card">
         <img className="header_image" alt="" src={group_image}></img>
         <div className="header_name maintain_size">
-          {activeGroup[0].chat_room.group_name}
+          {activeGroup[key]["chat_room_name"]}
         </div>
 
         <div className="options">
@@ -29,11 +30,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    // getGroups: () => {
-    // dispatch(get_chat_groups());
-    // },
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatHeader);

@@ -11,7 +11,7 @@ function UserCard({ logOutUser }) {
     <div className="user_card">
       <img className="user_card__user_image" alt="" src={user_image}></img>
       <div className="user_card__user_name maintain_size">Placeholder user</div>
-      <DropdownMenu options={dropDownMenuContents} />
+      {/* <DropdownMenu options={dropDownMenuContents} /> */}
       <div className="user_card__options"></div>
     </div>
   );
