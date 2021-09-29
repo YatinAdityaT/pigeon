@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/ChatFooter.css";
-import { connect, createDispatchHook } from "react-redux";
+import { connect } from "react-redux";
 
 function ChatFooter({ sockets, activeGroup, userEmail }) {
   const chat_id = Object.keys(activeGroup)[0];
