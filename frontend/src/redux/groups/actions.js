@@ -24,3 +24,12 @@ export const add_message = (message, chat_id) => (dispatch) => {
     chat_id,
   });
 };
+
+export const add_socket = (chat_id, socket) => (dispatch) => {
+  console.log("in action add_socket", chat_id, socket);
+  dispatch({
+    type: actions.ADD_SOCKET,
+    chat_id,
+    socket,
+  });
+};

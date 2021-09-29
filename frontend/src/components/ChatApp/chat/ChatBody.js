@@ -2,9 +2,15 @@ import React, { useEffect } from "react";
 import "./css/ChatBody.css";
 import ChatMessage from "./ChatMessage";
 import { connect } from "react-redux";
-import { get_messages, add_message } from "../../../redux";
+import { get_messages, add_message, add_socket } from "../../../redux";
 
-function ChatBody({ addMessage, userEmail, message_list, activeGroup }) {
+function ChatBody({
+  addSocket,
+  addMessage,
+  userEmail,
+  message_list,
+  activeGroup,
+}) {
   const group_id = Object.keys(activeGroup)[0];
 
   useEffect(() => {
@@ -12,6 +18,8 @@ function ChatBody({ addMessage, userEmail, message_list, activeGroup }) {
 
     socket.addEventListener("open", (event) => {
       console.log("Connected to chat!");
+      console.log("adding socket to state", group_id, socket);
+      addSocket(group_id, socket);
     });
 
     socket.addEventListener("message", (event) => {
@@ -23,7 +31,7 @@ function ChatBody({ addMessage, userEmail, message_list, activeGroup }) {
           addMessage(message["data"], Object.keys(activeGroup));
         }
       } catch (e) {
-        console.log(e, e.trace);
+        // console.log(e, e.trace);
       }
     });
 
@@ -33,6 +41,11 @@ function ChatBody({ addMessage, userEmail, message_list, activeGroup }) {
     });
 
     console.log("message_list", message_list);
+
+    // clean up
+    return () => {
+      socket.close();
+    };
   }, [activeGroup]);
 
   return (
@@ -64,6 +77,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addMessage: (message, chat_id) => {
       dispatch(add_message(message, chat_id));
+    },
+    addSocket: (chat_id, socket) => {
+      dispatch(add_socket(chat_id, socket));
     },
   };
 };

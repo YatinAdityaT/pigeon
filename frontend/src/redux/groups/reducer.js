@@ -66,6 +66,19 @@ const clear_active = (state, action) => {
   };
 };
 
+const add_socket = (state, action) => {
+  var sockets = state.sockets;
+  const chat_id = action.chat_id;
+  var socket = action.socket;
+  sockets = Object.assign({}, sockets, { [chat_id]: socket });
+  console.log(sockets);
+
+  return {
+    ...state,
+    sockets: sockets,
+  };
+};
+
 const chatGroupReducer = (state = chatGroupState, action) => {
   switch (action.type) {
     case actions.LOAD_CHAT_GROUPS:
@@ -82,6 +95,9 @@ const chatGroupReducer = (state = chatGroupState, action) => {
 
     case actions.CLEAR_ACTIVE:
       return clear_active(state, action);
+
+    case actions.ADD_SOCKET:
+      return add_socket(state, action);
 
     default:
       return state;
