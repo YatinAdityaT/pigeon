@@ -3,6 +3,7 @@ from asgiref.sync import async_to_sync
 from backend.users.models import CustomUser
 from channels.layers import get_channel_layer
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Message(models.Model):
@@ -113,15 +114,21 @@ class Invitation(models.Model):
         """
         super().save(*args, **kwargs)
 
-        channel_layer = get_channel_layer()
-        channel_name = CustomUser.objects.get(
-            email=self.participant_email).private_channel_layer
+        try:
 
-        if channel_name:
-            async_to_sync(channel_layer.group_send)(
-                channel_name,
-                {
-                    "type": "send_group_list",
-                    "email": self.participant_email
-                }
-            )
+            channel_layer = get_channel_layer()
+            channel_name = CustomUser.objects.get(
+                email=self.participant_email).private_channel_layer
+
+            if channel_name:
+                async_to_sync(channel_layer.group_send)(
+                    channel_name,
+                    {
+                        "type": "send_group_list",
+                        "email": self.participant_email
+                    }
+                )
+
+        except ObjectDoesNotExist:
+            # if the CustomUser doesn't exist then fail silently
+            pass

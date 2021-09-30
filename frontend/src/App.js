@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { checkLogin } from "./redux";
+import {
+  toggle_add_participant_modal,
+  toggle_add_group_modal,
+  checkLogin,
+} from "./redux";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -17,9 +21,22 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import Register from "./components/auth/Register";
 import ChatApp from "./components/ChatApp/ChatApp";
 import Toast from "./components/ChatApp/others/Toast";
+import Modal from "./components/ChatApp/others/Modal";
 
-function App(props) {
-  const { loggedIn } = props;
+function App({
+  loggedIn,
+  checkIfLoggedIn,
+  toggleModalAddParticipant,
+  toggleModalAddGroup,
+  showModalAddGroup,
+  showModalAddParticipants,
+}) {
+  if (showModalAddGroup && showModalAddParticipants) {
+    // if both return true for some reason then
+    // toggle them both off as this state shouldn't exist!
+    toggleModalAddGroup();
+    toggleModalAddParticipant();
+  }
 
   const mounted = useRef();
   useEffect(() => {
@@ -28,7 +45,7 @@ function App(props) {
         // component did mount
         // Check if the user's browser provided a
         // valid session cookie
-        props.checkIfLoggedIn();
+        checkIfLoggedIn();
       }
       mounted.current = true;
     }
@@ -38,6 +55,7 @@ function App(props) {
     <Router>
       <div className="app">
         <Toast />
+        <Modal />
         <Switch>
           <Route path="/register/" exact component={Register} />
           <Route path="/login/" exact component={Login} />
@@ -54,6 +72,8 @@ function App(props) {
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.login.loggedIn,
+    showModalAddParticipant: state.modal.addParticipant,
+    showModalAddGroup: state.modal.addGroup,
   };
 };
 
@@ -61,6 +81,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     checkIfLoggedIn: () => {
       dispatch(checkLogin());
+    },
+
+    toggleModalAddGroup: () => {
+      dispatch(toggle_add_group_modal());
+    },
+    toggleModalAddParticipant: () => {
+      dispatch(toggle_add_participant_modal());
     },
   };
 };

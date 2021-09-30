@@ -1,4 +1,3 @@
-from django.core.checks import messages
 from rest_framework import serializers
 from .models import Invitation, Message, ChatGroup
 from django.contrib.auth import get_user_model
@@ -31,7 +30,7 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 class ParticipantSerializer(DynamicFieldsModelSerializer):
     """
-        display: email, username, is_active, date_joined, last_login and 
+        display: email, username, is_active, date_joined, last_login and
                  profile_image
     """
     class Meta:
@@ -42,9 +41,9 @@ class ParticipantSerializer(DynamicFieldsModelSerializer):
 
 class InvitationSerializer(DynamicFieldsModelSerializer):
     """
-        to_representation: 
+        to_representation:
                 Add all fields from the chat group
-        create: 
+        create:
             Input: chat_room, participant_email
             Output: new invitation
         display: all fields
@@ -56,9 +55,14 @@ class InvitationSerializer(DynamicFieldsModelSerializer):
         return super().to_representation(instance)
 
     def create(self, validated_data):
+        print('create invitation called!')
+        participant_email = validated_data['participant_email']
+        chat_room_id = self.context['request'].parser_context['kwargs']['chat_id']
+        chat_room = ChatGroup.objects.get(id=chat_room_id)
+
         invitation = Invitation(
-            chat_room=validated_data['chat_room'],
-            participant_email=validated_data['participant_email']
+            chat_room=chat_room,
+            participant_email=participant_email
         )
         invitation.save()
         return invitation
@@ -70,7 +74,7 @@ class InvitationSerializer(DynamicFieldsModelSerializer):
 
 class MessageSerializer(DynamicFieldsModelSerializer):
     """
-        create: 
+        create:
             Inputs: owner, chat_room and text
             Outputs: a new message
 
@@ -79,7 +83,7 @@ class MessageSerializer(DynamicFieldsModelSerializer):
             Output: updated instance of a message
 
         displays:
-            owner, chat_room and text. 
+            owner, chat_room and text.
     """
 
     def create(self, validated_data):
@@ -108,7 +112,7 @@ class ChatGroupSerializer(DynamicFieldsModelSerializer):
         to_representation:
             adds details of the participantSerializer
             to the participants field.
-        create: 
+        create:
             Input: group_name, participants and owner
             Output: a new chat group
         update:
@@ -125,19 +129,11 @@ class ChatGroupSerializer(DynamicFieldsModelSerializer):
         return super().to_representation(instance)
 
     def create(self, validated_data):
-
         chat_group = ChatGroup(
             group_name=validated_data['group_name'],
             chat_owner=validated_data['chat_owner']
         )
-
         chat_group.save()
-
-        for participant in validated_data['participants']:
-            chat_group.participants.add(participant)
-
-        chat_group.save()
-
         return chat_group
 
     def update(self, instance, validated_data):

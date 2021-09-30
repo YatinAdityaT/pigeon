@@ -8,6 +8,7 @@ import registerReducer from "./register/reducer";
 import appReducer from "./app/reducer";
 import toastReducer from "./toast/reducer";
 import chatGroupReducer from "./groups/reducer";
+import modalReducer from "./modal/reducer";
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   toast: toastReducer,
   chatGroup: chatGroupReducer,
+  modal: modalReducer,
 });
 
 export default rootReducer;

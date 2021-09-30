@@ -50,7 +50,9 @@ urlpatterns = [
                 MessageDestroyView.as_view()),
 
         # Create an invitation
-        path('invitation/create', InvitationCreateView.as_view()),
+        re_path(
+            r'invitation/create/(?P<chat_id>[\w-]{36})',
+            InvitationCreateView.as_view()),
 
         # List all invitations
         path('invitation', InvitationListView.as_view()),
