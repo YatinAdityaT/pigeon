@@ -2,8 +2,9 @@ import React from "react";
 import "./css/ChatHeader.css";
 import { connect } from "react-redux";
 import group_image from "../../../assets/group_image.png";
+import { toggle_add_participant_modal } from "../../../redux";
 
-function ChatHeader({ activeGroup }) {
+function ChatHeader({ activeGroup, toggleModal }) {
   const key = Object.keys(activeGroup)[0];
   return (
     <>
@@ -14,9 +15,10 @@ function ChatHeader({ activeGroup }) {
         </div>
 
         <div className="options">
-          <i className="fas fa-phone-alt"></i>
-          <i className="fas fa-video"></i>
-          <i className="fas fa-ellipsis-v"></i>
+          <i onClick={toggleModal} class="fas fa-user-plus"></i>
+          {/* <i className="fas fa-phone-alt"></i> */}
+          {/* <i className="fas fa-video"></i> */}
+          {/* <i className="fas fa-ellipsis-v"></i> */}
         </div>
       </div>
     </>
@@ -30,7 +32,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    toggleModal: () => dispatch(toggle_add_participant_modal()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatHeader);
