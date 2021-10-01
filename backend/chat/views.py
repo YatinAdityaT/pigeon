@@ -44,10 +44,8 @@ class MessageListView(ListAPIView):
     permission_classes = [IsParticipantOr404]
 
     def get_queryset(self):
-        print(self.kwargs.get('chat_id'))
         queryset = Message.objects.filter(
             chat_room__id=self.kwargs.get('chat_id'))
-        print(queryset)
         return queryset
 
 
@@ -81,7 +79,6 @@ class InvitationListView(ListAPIView):
 #         queryset = ChatGroup.objects.get(
 #             id=self.kwargs.get('chat_id')
 #         )
-#         print(queryset)
 #         return queryset
 
 # ---------------------Create------------------------------------

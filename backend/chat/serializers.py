@@ -128,6 +128,7 @@ class ChatGroupSerializer(DynamicFieldsModelSerializer):
         return super().to_representation(instance)
 
     def create(self, validated_data):
+        print('chat group create called')
         chat_group = ChatGroup(
             group_name=validated_data['group_name'],
             chat_owner=validated_data['chat_owner']
