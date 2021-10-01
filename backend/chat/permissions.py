@@ -45,4 +45,5 @@ class IsAuthenticated(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
+        print(request.custom_user, request.custom_user.is_authenticated, view)
         return bool(request.custom_user and request.custom_user.is_authenticated)
