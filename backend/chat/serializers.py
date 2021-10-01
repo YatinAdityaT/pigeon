@@ -55,7 +55,6 @@ class InvitationSerializer(DynamicFieldsModelSerializer):
         return super().to_representation(instance)
 
     def create(self, validated_data):
-        print('create invitation called!')
         participant_email = validated_data['participant_email']
         chat_room_id = self.context['request'].parser_context['kwargs']['chat_id']
         chat_room = ChatGroup.objects.get(id=chat_room_id)

@@ -5,10 +5,6 @@ import { connect } from "react-redux";
 function ChatFooter({ sockets, activeGroup, userEmail }) {
   const chat_id = Object.keys(activeGroup)[0];
   const socket = sockets[chat_id];
-  console.assert(socket != undefined, {
-    errorMsg: "it is undefined!",
-    socket: socket,
-  });
 
   const submitMessage = (event) => {
     event.preventDefault();

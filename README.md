@@ -1,6 +1,15 @@
-# Project under construction
+<h1 align="center">Pigeon</h1>
+<p align="center">
+<img src="./frontend/src/assets/logo.png">
+</p>
 
-A chat application. Django and channels in the backend. React and Redux in the frontend.
+
+
+A WhatsApp-inspired real-time browser-based chat application made by using Django & Django channels in the backend and React, React-Redux and React router in the frontend.
+
+<details><summary>Project structure</summary>
+<p>
+
 ```
 PIGEON
 │   .gitignore
@@ -184,3 +193,6 @@ PIGEON
             middleware.py
             __init.py__
 ```
+
+</p>
+</details>

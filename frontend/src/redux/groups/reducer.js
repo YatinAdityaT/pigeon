@@ -71,7 +71,6 @@ const add_socket = (state, action) => {
   const chat_id = action.chat_id;
   var socket = action.socket;
   sockets = Object.assign({}, sockets, { [chat_id]: socket });
-  console.log(sockets);
 
   return {
     ...state,

@@ -17,8 +17,7 @@ function ChatBody({
     const socket = new WebSocket("ws://localhost:8000/chat/" + group_id + "/");
 
     socket.addEventListener("open", (event) => {
-      console.log("Connected to chat!");
-      console.log("adding socket to state", group_id, socket);
+      console.log("Websocket connection established to /chat/" + group_id);
       addSocket(group_id, socket);
     });
 
@@ -27,20 +26,17 @@ function ChatBody({
       try {
         const message = JSON.parse(event.data);
         if (message["type"] == "single_message") {
-          console.log("ADD MESSAGE!");
           addMessage(message["data"], Object.keys(activeGroup));
         }
-      } catch (e) {
-        // console.log(e, e.trace);
-      }
+      } catch (e) {}
     });
 
     socket.addEventListener("close", (event) => {
-      console.log("Disconnected to the chat!");
+      console.log(
+        "Websocket connection to /chat/" + group_id + " disconnected!"
+      );
       socket.close();
     });
-
-    console.log("message_list", message_list);
 
     // clean up
     return () => {

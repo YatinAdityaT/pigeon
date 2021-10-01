@@ -52,6 +52,7 @@ export const login = (email, password) => async (dispatch) => {
   dispatch({
     type: actions.LOGIN_SUCCESS,
     user_email: data.user_email,
+    username: data.username,
   });
   dispatch(toastActions.addToast(data.detail, "success"));
 };
@@ -82,6 +83,7 @@ export const checkLogin = () => async (dispatch) => {
   dispatch({
     type: actions.LOGIN_SUCCESS,
     user_email: data.user_email,
+    username: data.username,
   });
 };
 

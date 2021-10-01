@@ -17,10 +17,16 @@ def get_user(request):
     user = None
     try:
         user_id = request.session['user_id']
+    except KeyError:
+        try:
+            user_id = request.session['_auth_user_id']
+        except:
+            pass
+    try:
         user = User.objects.get(email=user_id)
         session_id = request.COOKIES['sessionid']
     except Exception as e:
-        pass
+        print(e)
     else:
         if not session_id:
             request.session.flush()

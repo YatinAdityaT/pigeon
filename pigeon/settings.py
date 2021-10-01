@@ -134,14 +134,13 @@ DJOSER = {
 }
 
 # Email configuration
-# (devcomment) change console to smtp!
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ["DJANGO_EMAIL"]
 EMAIL_HOST_PASSWORD = os.environ['DJANGO_EMAIL_PASSWORD']
-
 CSRF_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = True

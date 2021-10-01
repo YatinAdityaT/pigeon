@@ -15,13 +15,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name='email address',
         max_length=60,
-        primary_key=True)
+        primary_key=True
+    )
 
     username = models.CharField(max_length=40)
 
     # store the channel name of private channels which are created
     # for users to get information directly from the backend via ws
-    private_channel_layer = models.CharField(blank=True, max_length=80)
+    private_channel_layer = models.CharField(
+        blank=True, max_length=80
+    )
 
     # by default, user accounts will not be admin accounts or superusers
     # by default, each account will be active (deactivate ~ deleting the account)
@@ -33,10 +36,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # automatically store the date-time of joining and last login
     date_joined = models.DateTimeField(
         verbose_name="date joined",
-        auto_now_add=True)
+        auto_now_add=True
+    )
     last_login = models.DateTimeField(
         verbose_name="last joined",
-        auto_now=True)
+        auto_now=True
+    )
 
     # profile image is optional and default image is provided
     def return_profile_image_path(self, filename):
@@ -47,7 +52,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         upload_to=return_profile_image_path,
         null=True,
         blank=True,
-        default=f"profile_images/default.png")
+        default=f"profile_images/default.png"
+    )
 
     USERNAME_FIELD = 'email'  # make the email field to be the unique identifier
     REQUIRED_FIELDS = ['username']  # the fields that are required to be filled
