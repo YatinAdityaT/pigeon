@@ -19,13 +19,12 @@ function ChatApp({ getGroups, getMessages }) {
     const socket = new WebSocket("ws://localhost:8000/chat/");
 
     socket.addEventListener("open", (event) => {
-      console.log("Connected!");
+      console.log("WebSocket connection established to /chat/ endpoint");
     });
 
     socket.addEventListener("message", (event) => {
       const message = JSON.parse(event.data);
 
-      console.log("message", message);
       switch (message["type"]) {
         case "groups":
           return getGroups(JSON.parse(message["group_list"]));
@@ -36,7 +35,7 @@ function ChatApp({ getGroups, getMessages }) {
     });
 
     socket.addEventListener("close", (event) => {
-      console.log("Disconnected!");
+      console.log("Websocket connection to /chat/ disconnected!");
       socket.close();
     });
   }, []);

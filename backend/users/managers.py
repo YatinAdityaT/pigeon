@@ -15,8 +15,11 @@ class CustomUserManager(BaseUserManager):
 
         # normalize the email before storing in the db
         email = self.normalize_email(email)
-        user = self.model(email=email, username=username,
-                          **kwargs)  # create a user
+        user = self.model(
+            email=email,
+            username=username,
+            **kwargs
+        )  # create a user
         user.set_password(password)  # set the password for that user
         user.save(using=self._db)  # save the user
         return user
@@ -26,7 +29,12 @@ class CustomUserManager(BaseUserManager):
         kwargs.setdefault('is_staff', False)
         kwargs.setdefault('is_superuser', False)
         kwargs.setdefault('is_admin', False)
-        return self._create_user(email, username, password, **kwargs)
+        return self._create_user(
+            email,
+            username,
+            password,
+            **kwargs
+        )
 
     def create_superuser(self, email, username, password, **kwargs):
         # This function is called when someone tries to create a superuser
@@ -35,8 +43,17 @@ class CustomUserManager(BaseUserManager):
         kwargs.setdefault('is_admin', True)
 
         if kwargs.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
+            raise ValueError(
+                'Superuser must have is_staff=True.'
+            )
         if kwargs.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+            raise ValueError(
+                'Superuser must have is_superuser=True.'
+            )
 
-        return self._create_user(email, username, password, **kwargs)
+        return self._create_user(
+            email,
+            username,
+            password,
+            **kwargs
+        )

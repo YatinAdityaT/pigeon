@@ -1,10 +1,12 @@
 import json
 
-from backend.chat.utils import (create_message_object, filter_email,
-                                get_private_layer_name,
-                                get_user_email_and_session_data,
-                                send_group_messages, send_group_names,
-                                update_private_channel_layer_value)
+from backend.chat.utils import (
+    create_message_object, filter_email,
+    get_private_layer_name,
+    get_user_email_and_session_data,
+    send_group_messages, send_group_names,
+    update_private_channel_layer_value
+)
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
@@ -65,7 +67,9 @@ class PrivateChannelConsumer(AsyncWebsocketConsumer):
             Also sets type to group_list.
         """
         if event['email'] == self.user_email:
-            group_names = await send_group_names(self.user_email)
+            group_names = await send_group_names(
+                self.user_email
+            )
             message = {
                 "type": "groups",
                 "group_list": json.dumps(group_names)
@@ -77,7 +81,9 @@ class PrivateChannelConsumer(AsyncWebsocketConsumer):
             Sends the requested chat room's messages.
             Sets type to messages.
         """
-        messages = await send_group_messages(event['chat_id'])
+        messages = await send_group_messages(
+            event['chat_id']
+        )
         message = {
 
             "type": "messages",
@@ -117,7 +123,9 @@ class GroupChannelConsumer(AsyncWebsocketConsumer):
 
             await self.accept()
 
-            self.room_group_name = await get_private_layer_name(self.user_email)
+            self.room_group_name = await get_private_layer_name(
+                self.user_email
+            )
             await self.send(self.room_group_name)
 
             # send group's messages on the private layer

@@ -29,8 +29,12 @@ class Message(models.Model):
         'ChatGroup',
         on_delete=models.CASCADE
     )
-    text = models.CharField(max_length=1000)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    text = models.CharField(
+        max_length=1000
+    )
+    timestamp = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return f"'{self.text}' by '{self.owner.username}' in '{self.chat_room}'. Message id: {self.id} "
@@ -66,7 +70,9 @@ class ChatGroup(models.Model):
         related_name='participant_chat_group',
         blank=True
     )
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return f"{self.group_name} : {self.id}"
@@ -81,7 +87,9 @@ class Invitation(models.Model):
         - participant_email: email id that is part of the chat group
         - chat_room & participant email together must be unique
     """
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(
+        auto_now_add=True
+    )
     chat_room = models.ForeignKey(
         'ChatGroup',
         related_name='chat_room_invitation',
@@ -118,10 +126,12 @@ class Invitation(models.Model):
 
             channel_layer = get_channel_layer()
             channel_name = CustomUser.objects.get(
-                email=self.participant_email).private_channel_layer
+                email=self.participant_email
+            ).private_channel_layer
 
             if channel_name:
-                async_to_sync(channel_layer.group_send)(
+                async_to_sync(
+                    channel_layer.group_send)(
                     channel_name,
                     {
                         "type": "send_group_list",

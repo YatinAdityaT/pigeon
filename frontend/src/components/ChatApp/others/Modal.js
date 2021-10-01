@@ -76,7 +76,6 @@ function Modal_({
     };
 
     var onClickOk = () => {
-      console.log("ok clicked", flag);
       flag == "participant"
         ? addParticipants(groupId, list)
         : addGroup(userEmail);

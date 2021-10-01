@@ -70,7 +70,9 @@ def send_group_names(user_email):
         returns their chat group names
     """
     group_names = []
-    invitations = Invitation.objects.filter(participant_email=user_email)
+    invitations = Invitation.objects.filter(
+        participant_email=user_email
+    )
     for invitation in invitations:
         chat_room_id = invitation.chat_room_id
         chat = ChatGroup.objects.get(id=chat_room_id)

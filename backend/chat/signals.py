@@ -14,10 +14,12 @@ def create_invitation_for_owner(instance, **kwargs):
     owner_email = instance.chat_owner.email
     if not Invitation.objects.filter(
             chat_room=instance,
-            participant_email=owner_email):
+            participant_email=owner_email
+    ):
         Invitation.objects.create(
             chat_room=instance,
-            participant_email=owner_email).save()
+            participant_email=owner_email
+        ).save()
 
 
 # On change of ChatGroup.participant m2m field, create
@@ -33,11 +35,13 @@ def create_invitations(instance, **kwargs):
         with transaction.atomic():  # in case of failure
             # create an invitation only if one doesn't already exist
             if not Invitation.objects.filter(
-                chat_room=instance,
-                    participant_email=email):
+                    chat_room=instance,
+                participant_email=email
+            ):
                 Invitation.objects.create(
                     chat_room=instance,
-                    participant_email=email).save()
+                    participant_email=email
+                ).save()
 
 
 User = get_user_model()
@@ -47,6 +51,8 @@ User = get_user_model()
 # and add them into those
 @receiver(post_save, sender=User)
 def add_created_users_to_chat_rooms_that_they_are_invited_in(sender, instance, **kwargs):
-    invitations = Invitation.objects.filter(participant_email=instance.email)
+    invitations = Invitation.objects.filter(
+        participant_email=instance.email
+    )
     for invitation in invitations:
         invitation.chat_room.participants.add(instance)

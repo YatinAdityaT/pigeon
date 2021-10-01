@@ -14,17 +14,25 @@ class EmailCustomAuthentication(authentication.BasicAuthentication):
         password = data.get('password')
 
         if not email:
-            raise exceptions.AuthenticationFailed('No email provided.')
+            raise exceptions.AuthenticationFailed(
+                'No email provided.'
+            )
         if not password:
-            raise exceptions.AuthenticationFailed('No password provided.')
+            raise exceptions.AuthenticationFailed(
+                'No password provided.'
+            )
 
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise exceptions.AuthenticationFailed(
-                "Incorrect email provided. No such user exists for this email.")
+                "Incorrect email provided. No such user exists for this email."
+            )
 
-        credentials = {'username': email, 'password': password}
+        credentials = {
+            'username': email,
+            'password': password
+        }
 
         if not user.is_active:
             raise exceptions.AuthenticationFailed(

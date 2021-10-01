@@ -6,6 +6,7 @@ const login_success = (state, action) => {
     ...state,
     loggedIn: true,
     userEmail: action.user_email,
+    username: action.username,
   };
 };
 
