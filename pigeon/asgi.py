@@ -17,4 +17,4 @@ application = ProtocolTypeRouter({
     )
 })
 
-django.setup()
+# django.setup()
