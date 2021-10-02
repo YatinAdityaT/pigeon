@@ -1,0 +1,1 @@
+web: daphne -p 8001 pigeon.asgi:application
