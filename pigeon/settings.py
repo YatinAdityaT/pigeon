@@ -4,7 +4,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.36']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.36', '.herokuapp.com']
 
 INSTALLED_APPS = [
     # added by me
