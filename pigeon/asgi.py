@@ -9,7 +9,6 @@ import django
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pigeon.settings')
-django.setup()
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),  # for http protocol we are using asgi application
@@ -17,3 +16,5 @@ application = ProtocolTypeRouter({
         URLRouter(backend.chat.routing.websocket_urlpatterns)
     )
 })
+
+django.setup()
