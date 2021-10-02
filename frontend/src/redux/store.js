@@ -9,10 +9,10 @@ import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import {
-  createStateSyncMiddleware,
-  initMessageListener,
-} from "redux-state-sync";
+// import {
+// createStateSyncMiddleware,
+// initMessageListener,
+// } from "redux-state-sync";
 
 const reduxStateSyncConfig = {
   blacklist: ["persist/PERSIST", "persist/REHYDRATE", "toast"], // don't sync toasts or persist
@@ -48,14 +48,14 @@ const store = createStore(
   composeWithDevTools(
     applyMiddleware(
       // logger, // logs the state in the console
-      thunk, // for async actions
-      createStateSyncMiddleware(reduxStateSyncConfig) // for redux state sync - syncs state across tabs
+      thunk // for async actions
+      // createStateSyncMiddleware(reduxStateSyncConfig) // for redux state sync - syncs state across tabs
     ),
     resetMiddleware()
   )
 );
 
-initMessageListener(store);
+// initMessageListener(store);
 
 const persistor = persistStore(store);
 export { store, persistor };
