@@ -1,12 +1,13 @@
 # the asgi configuration file is used to configure ASGI settings of the
 # app
+import django
+django.setup()
+
 from channels.middleware import BaseMiddleware
 import os
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
 import backend.chat.routing
-import django
-
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pigeon.settings')
 
@@ -16,5 +17,3 @@ application = ProtocolTypeRouter({
         URLRouter(backend.chat.routing.websocket_urlpatterns)
     )
 })
-
-# django.setup()
