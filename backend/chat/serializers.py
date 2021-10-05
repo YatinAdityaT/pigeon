@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Invitation, Message, ChatGroup
 from django.contrib.auth import get_user_model
+from backend.chat.email import send_mail_to_invitee
+from django.core.exceptions import ObjectDoesNotExist
 
 User = get_user_model()
 
@@ -64,6 +66,14 @@ class InvitationSerializer(DynamicFieldsModelSerializer):
             participant_email=participant_email
         )
         invitation.save()
+
+        # check if the invitee is has a account or not
+        # if not then send them an email asking them to join
+        try:
+            user = User.objects.get(email=participant_email)
+        except ObjectDoesNotExist:
+            send_mail_to_invitee(participant_email)
+
         return invitation
 
     class Meta:
