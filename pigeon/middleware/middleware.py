@@ -15,6 +15,7 @@ def get_user(request):
     """
     from django.contrib.auth.models import AnonymousUser
     user = None
+    user_id = None
     try:
         user_id = request.session['user_id']
     except KeyError:
