@@ -8,3 +8,4 @@ MANIFEST
 **/config.py
 venv
 plan.md
+**/static/**
