@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, "frontend/index.html", content_type='application/json')
+    return render(request, "frontend/index.html", )
