@@ -3,10 +3,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% load static %} 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="
+     style-src 'self' 'unsafe-inline';
+     script-src 'default-src' 'self' 'unsafe-inline' 'unsafe-eval' https://kit.fontawesome.com;
+     img-src 'self' https://kit.fontawesome.com/">
     <title>Pigeon</title>
-    {% load static %} 
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <script
       src="https://kit.fontawesome.com/6c1161df18.js"
       crossorigin="anonymous"
@@ -14,7 +19,9 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="{% static "main.js" %}" ></script>
+    <script 
+    src="{% static "main.js" %}" 
+    type="text/javascript" ></script>
   </body>
 </html>
 
