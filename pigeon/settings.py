@@ -1,3 +1,4 @@
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -38,7 +39,6 @@ MIDDLEWARE = [
     'pigeon.middleware.middleware.CustomAuthenticationMiddleware'
 ]
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 ROOT_URLCONF = 'pigeon.urls'
 
@@ -77,6 +77,25 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# if ON_HEROKU == 'True', grab the config from heroku
+if os.environ['ON_HEROKU'] == 'True':
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600, ssl_require=True)
+
+else:
+    # else use this config for my local postgresql db
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'pigeon_db',
+            'USER': os.environ['POSTGRESQL_USER'],
+            'PASSWORD': os.environ['POSTGRESQL_PASSWORD'],
+            'HOST': 'localhost',
+        }
+    }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
