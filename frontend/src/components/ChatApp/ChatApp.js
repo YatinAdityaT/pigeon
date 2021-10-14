@@ -16,7 +16,9 @@ function ChatApp({ getGroups, getMessages }) {
         messages = list of messages in the selected chat
     
     */
-    const socket = new WebSocket("ws://localhost:8000/chat/");
+    const hostname = window.location.hostname;
+    const port = window.location.port;
+    const socket = new WebSocket("ws://" + hostname + port + "/chat/");
 
     socket.addEventListener("open", (event) => {
       console.log("WebSocket connection established to /chat/ endpoint");

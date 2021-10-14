@@ -14,7 +14,12 @@ function ChatBody({
   const group_id = Object.keys(activeGroup)[0];
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/chat/" + group_id + "/");
+    const hostname = window.location.hostname;
+    const port = window.location.port;
+
+    const socket = new WebSocket(
+      "ws://" + hostname + port + "/chat/" + group_id + "/"
+    );
 
     socket.addEventListener("open", (event) => {
       console.log("Websocket connection established to /chat/" + group_id);
