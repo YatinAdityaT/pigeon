@@ -16,9 +16,10 @@ function ChatBody({
   useEffect(() => {
     const hostname = window.location.hostname;
     const port = window.location.port;
-    const path = "ws://" + hostname + port + "/chat/" + group_id + "/";
-    console.log("attempting to establish connection to " + path);
-    const socket = new WebSocket(path);
+
+    const socket = new WebSocket(
+      "ws://" + hostname + port + "/chat/" + group_id + "/"
+    );
 
     socket.addEventListener("open", (event) => {
       console.log("Websocket connection established to /chat/" + group_id);
