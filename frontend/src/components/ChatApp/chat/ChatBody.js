@@ -18,7 +18,8 @@ function ChatBody({
     const port = window.location.port;
 
     const socket = new WebSocket(
-      "ws://" + hostname + ":" + port + "/chat/" + group_id + "/"
+      "ws://" + hostname + ":" + port + "/chat/" + group_id + "/",
+      "echo-protocol"
     );
 
     socket.addEventListener("open", (event) => {
