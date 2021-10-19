@@ -18,5 +18,5 @@ application = ProtocolTypeRouter({
     "http": get_asgi_application(),  # for http protocol we are using asgi application
     "websocket": OriginValidator(BaseMiddleware(
         URLRouter(backend.chat.routing.websocket_urlpatterns)
-    ), ["*", "http://pigeon-chat-application.herokuapp.com", "http://localhost:8000"])
+    ), ["http://pigeon-chat-application.herokuapp.com", "http://localhost:8000"])
 })
