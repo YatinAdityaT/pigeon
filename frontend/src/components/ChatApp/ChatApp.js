@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { get_chat_groups, get_messages } from "../../redux";
 import Chat from "./chat/Chat";
 import Sidebar from "./sidebar/Sidebar";
+import ReconnectingWebSocket from "reconnecting-websocket";
 
 function ChatApp({ getGroups, getMessages }) {
   useEffect(() => {

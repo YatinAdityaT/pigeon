@@ -3,6 +3,7 @@ import "./css/ChatBody.css";
 import ChatMessage from "./ChatMessage";
 import { connect } from "react-redux";
 import { get_messages, add_message, add_socket } from "../../../redux";
+import ReconnectingWebSocket from "reconnecting-websocket";
 
 function ChatBody({
   addSocket,

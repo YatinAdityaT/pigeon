@@ -5,7 +5,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.36', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
+                 '192.168.1.36', '.herokuapp.com', '*']
 
 INSTALLED_APPS = [
     # added by me
@@ -65,8 +66,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-            "hosts": [(os.environ['REDIS_URL'], 6379)],
+            # "hosts": [('127.0.0.1', 6379)],
+            "hosts": [os.environ['REDIS_URL'], ],
         },
     },
 }
@@ -153,6 +154,10 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
 }
 
+
+PROTOCOL = 'https'
+
+
 # Email configuration
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -166,6 +171,7 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

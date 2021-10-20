@@ -14,5 +14,5 @@ urlpatterns = [
 ]
 
 
-paths = ['login/', 'register/', 'activate/']
-urlpatterns += [path(url_path, index) for url_path in paths]
+paths = ['login/', 'register/', 'activate/.*']
+urlpatterns += [re_path(url_path, index) for url_path in paths]

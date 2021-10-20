@@ -4,7 +4,7 @@ from django.core.mail import EmailMultiAlternatives
 body = """
 Hi there!<br>
 Someone invited to join Pigeon - the real-time browser-based chat app!
-Create your account today at: &lt;domain_name&gt;/register<br>
+Create your account today at: https://pigeon-chat-application.herokuapp.com/register
 
 Follow these simple steps:<br>
 1. Register yourself using <b>this email address</b>.<br>
