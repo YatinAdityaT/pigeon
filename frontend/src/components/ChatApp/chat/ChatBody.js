@@ -17,9 +17,10 @@ function ChatBody({
   useEffect(() => {
     const hostname = window.location.hostname;
     const port = window.location.port;
+    const protocol = window.location.protocol == "http:" ? "ws://" : "wss://";
 
     const socket = new WebSocket(
-      "wss://" + hostname + ":" + port + "/chat/" + group_id + "/",
+      protocol + hostname + ":" + port + "/chat/" + group_id + "/",
       "echo-protocol"
     );
 

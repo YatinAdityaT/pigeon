@@ -4,7 +4,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-DEBUG = False
+DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
                  '192.168.1.36', '.herokuapp.com', '*']
 
@@ -66,8 +66,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            # "hosts": [('127.0.0.1', 6379)],
-            "hosts": [os.environ['REDIS_URL'], ],
+            "hosts": [os.environ['REDIS_URL'] if not DEBUG else ['127.0.0.1', 6379]],
         },
     },
 }

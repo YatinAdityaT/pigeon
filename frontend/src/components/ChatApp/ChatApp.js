@@ -19,8 +19,9 @@ function ChatApp({ getGroups, getMessages }) {
     */
     const hostname = window.location.hostname;
     const port = window.location.port;
+    const protocol = window.location.protocol == "http:" ? "ws://" : "wss://";
     const socket = new WebSocket(
-      "wss://" + hostname + ":" + port + "/chat/",
+      protocol + hostname + ":" + port + "/chat/",
       "echo-protocol"
     );
 
