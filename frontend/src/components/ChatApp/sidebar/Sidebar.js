@@ -10,12 +10,13 @@ function Sidebar({ group_list }) {
     <div className="sidebar">
       <UserCard />
       <NewGroup />
-      {group_list?.map((element) => {
-        const key = Object.keys(element)[0];
-        const group_name = element[key]["chat_room_name"];
-        return <GroupCard group_id={key} group_name={group_name} />;
-      })}
-      <div className="sidebar__group_cards"></div>
+      <div className="sidebar__group_cards">
+        {group_list?.map((element) => {
+          const key = Object.keys(element)[0];
+          const group_name = element[key]["chat_room_name"];
+          return <GroupCard group_id={key} group_name={group_name} />;
+        })}
+      </div>
     </div>
   );
 }

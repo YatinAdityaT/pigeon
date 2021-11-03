@@ -4,6 +4,7 @@ import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
 import ChatHeader from "./ChatHeader";
 import { connect } from "react-redux";
+import logo from "../../../assets/logo.png";
 
 function Chat({ activeGroup }) {
   return (
@@ -15,7 +16,11 @@ function Chat({ activeGroup }) {
           <ChatFooter />
         </>
       ) : (
-        ""
+        <>
+          <div className="chat_empty">
+            <img className="logo_image_chat_body" alt="" src={logo} />
+          </div>
+        </>
       )}
     </div>
   );

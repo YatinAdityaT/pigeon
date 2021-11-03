@@ -1,9 +1,18 @@
 .new_group {
   display: flex;
-  background-color: #f6f6f6;
+  background-color: var(--other-colors);
   padding: 10px;
   align-items: center;
   justify-content: center;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: lightgray;
+  cursor: pointer;
+}
+
+.new_group:hover {
+  background-color: #b4b4b4a9;
 }
 
 .new_group__text {

@@ -2,7 +2,7 @@
   display: flex;
   height: 95vh;
   width: 90vw;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.14);
+  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.14); */
   justify-content: center;
 }
 
@@ -14,4 +14,8 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.fas {
+  cursor: pointer;
 }

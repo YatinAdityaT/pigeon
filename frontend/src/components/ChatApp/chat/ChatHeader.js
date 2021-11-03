@@ -15,7 +15,9 @@ function ChatHeader({ activeGroup, toggleModal }) {
         </div>
 
         <div className="options">
-          <i onClick={toggleModal} class="fas fa-user-plus"></i>
+          <i onClick={toggleModal} class="fas fa-user-plus tooltip">
+            <div className="tooltip_text_inside">Add participants</div>
+          </i>
           {/* <i className="fas fa-phone-alt"></i> */}
           {/* <i className="fas fa-video"></i> */}
           {/* <i className="fas fa-ellipsis-v"></i> */}

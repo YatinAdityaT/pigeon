@@ -11,10 +11,10 @@ import "./Modal.css";
 const customStyle = {
   // custom style for the modal
   content: {
-    top: "20%",
+    top: "30%",
     left: "30%",
     right: "30%",
-    bottom: "20%",
+    bottom: "30%",
   },
   overlay: {
     backgroundColor: "rgba(0,0,0,0.8)",

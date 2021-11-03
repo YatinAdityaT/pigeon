@@ -13,7 +13,9 @@ function UserCard({ logOutUser, username }) {
       <div className="user_card__user_name maintain_size">{username}</div>
       {/* <DropdownMenu options={dropDownMenuContents} /> */}
       {/* <div className="user_card__options"></div> */}
-      <i onClick={logOutUser} class="fas fa-sign-out-alt"></i>
+      <i onClick={logOutUser} class="fas fa-sign-out-alt tooltip">
+        <div className="tooltip_text_inside">Logout</div>
+      </i>
     </div>
   );
 }

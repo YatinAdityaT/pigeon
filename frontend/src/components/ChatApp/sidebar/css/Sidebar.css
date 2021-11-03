@@ -1,15 +1,18 @@
 .sidebar {
   flex: 0.2;
   display: flex;
-  background-color: white;
+  background-color: var(--other-colors);
   flex-direction: column;
   padding: 0px;
-  border-style: solid;
+  border-right-style: solid;
   border-width: 0.5px;
   border-color: lightgray;
+  max-width: 190px;
+  min-width: 180px;
+  color: var(--text-color);
 }
 
 .sidebar__group_cards {
   overflow: auto;
-  scrollbar-width: thin;
+  /* scrollbar-width: thin; */
 }

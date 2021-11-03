@@ -2,9 +2,13 @@
   position: relative;
   display: flex;
   align-items: center;
-  background-color: #ebebeb;
+  background-color: var(--other-colors);
   padding: 12px;
   z-index: 2;
+  border-bottom-style: solid;
+  border-width: 0.5px;
+  border-color: lightgray;
+  color: var(--text-color);
 }
 
 .header_name {
@@ -13,6 +17,7 @@
   font-size: 1.1rem;
   flex-grow: 1;
   text-overflow: ellipse;
+  padding-bottom: 2px;
 }
 
 .header_image {

@@ -1,8 +1,9 @@
 .user_card {
   display: flex;
   align-items: center;
-  background-color: #ebebeb;
+  background-color: var(--other-colors);
   padding: 12px;
+  color: var(--text-color);
 }
 
 .user_card__user_name {
@@ -15,6 +16,7 @@
   border-radius: 50%;
   width: 40px;
 }
+
 .fa-ellipsis-v {
   width: 5px;
   margin: 0 12px;

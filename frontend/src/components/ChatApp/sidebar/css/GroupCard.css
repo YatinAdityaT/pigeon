@@ -2,11 +2,19 @@
   display: flex;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
+  overflow: hidden;
 }
 
+.group_card:hover {
+  background-color: #b4b4b4a9;
+}
 .group_card__group_name {
   flex: 1;
   padding-left: 12px;
+  overflow: hidden;
+  max-height: 40px;
+  padding-bottom: 2px;
 }
 
 .group_card__image_and_name {
@@ -16,7 +24,7 @@
 
 .group_card__group_image {
   border-radius: 50%;
-  height: 49px;
+  height: 45px;
 }
 .group_card__container {
   display: flex;

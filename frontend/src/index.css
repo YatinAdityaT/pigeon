@@ -1,3 +1,18 @@
+:root {
+  --outgoing-message: #98acf8;
+  --main-background: #b088f9;
+  --chat-body-color: #fff0;
+  /* white; */
+  /* #da9ff9; */
+  --other-colors: #ffffffde;
+  /* white; */
+  /* #bedcfa; */
+  --text-color: black;
+  --common-background: #ffb085;
+  --common-outer-container: rgba(255, 255, 255, 0.8);
+  --common-inner-container: #fef1e6;
+}
+
 html {
   background-color: #d6dbd7;
 }
@@ -10,10 +25,41 @@ body {
   margin: auto;
   font-family: Segoe UI, Helvetica Neue, Helvetica, Lucida Grande, Arial, Ubuntu,
     Cantarell, Fira Sans, sans-serif;
-  background-image: url("../src/assets/bg1.jpg") !important;
-  background-size: 1000px;
+  background-image: url("assets/b9.jpg") !important;
+  background-size: 2000px;
+  /* background: var(--common-background); */
 }
 
 #root {
   display: flex;
+}
+.tooltip {
+  display: inline-block;
+  position: relative;
+  border-bottom: 1px dotted #666;
+  text-align: center;
+}
+.tooltip .tooltip_text_inside {
+  top: 25px;
+  left: 50%;
+  font-weight: normal;
+  transform: translate(-50%, 0);
+  padding: 5px 5px;
+  color: #444444;
+  background-color: #eeeeee;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 99999999;
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.tooltip_text_inside {
+  font-family: Segoe UI, Helvetica Neue, Helvetica, Lucida Grande, Arial, Ubuntu,
+    Cantarell, Fira Sans, sans-serif;
+}
+
+.tooltip:hover .tooltip_text_inside {
+  display: block;
 }

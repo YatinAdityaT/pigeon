@@ -20,10 +20,14 @@ function ChatApp({ getGroups, getMessages }) {
     const hostname = window.location.hostname;
     const port = window.location.port;
     const protocol = window.location.protocol == "http:" ? "ws://" : "wss://";
-    const socket = new WebSocket(
-      protocol + hostname + ":" + port + "/chat/",
-      "echo-protocol"
+    const socket = new ReconnectingWebSocket(
+      protocol + hostname + ":" + port + "/chat/"
     );
+
+    socket.addEventListener("error", (event) => {
+      console.log("ERROR!!");
+      console.log(event);
+    });
 
     socket.addEventListener("open", (event) => {
       console.log("WebSocket connection established to /chat/ endpoint");
