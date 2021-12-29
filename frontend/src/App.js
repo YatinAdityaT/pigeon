@@ -22,6 +22,7 @@ import Register from "./components/auth/Register";
 import ChatApp from "./components/ChatApp/ChatApp";
 import Toast from "./components/ChatApp/others/Toast";
 import Modal from "./components/ChatApp/others/Modal";
+import AboutPage from "./components/ChatApp/AboutPage";
 
 function App({
   loggedIn,
@@ -61,8 +62,9 @@ function App({
           <Route path="/login/" exact component={Login} />
           <Route path="/notice/" exact component={ActivationNotice} />
           <Route path="/activate/:uid/:token" exact component={Activate} />
+          <Route path="/about/" exact component={AboutPage} />
           <PrivateRoute path="/chat/" exact component={ChatApp} />
-          <Redirect from="*" to="/chat/" />
+          <Redirect from="*" to="/about/" />
         </Switch>
       </div>
     </Router>
