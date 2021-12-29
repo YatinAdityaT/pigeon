@@ -116,6 +116,12 @@ export const logout = () => async (dispatch) => {
     });
   }
 
+  // delete the session cookie!
+  var cookie_value = document.cookie.match(/sessionid=([\w]+);?/)[1];
+  if (cookie_value !== undefined) {
+    document.cookie = `sessionid=${cookie_value}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  }
+
   dispatch(toastActions.addToast(data.detail, "success"));
   dispatch({
     type: actions.RESET,
